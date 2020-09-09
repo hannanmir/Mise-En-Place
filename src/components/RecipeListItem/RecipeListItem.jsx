@@ -22,7 +22,7 @@ const useStyles = makeStyles({
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={props.recipe.path}
+            image={props.recipe.image}
             title={props.recipe.name}
           />
           <CardContent>
