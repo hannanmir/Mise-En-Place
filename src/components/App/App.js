@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import RecipeList from '../RecipeList/RecipeList.jsx'
 import './App.css';
 
 class App extends Component {
@@ -91,6 +91,14 @@ class App extends Component {
               path="/home"
               component={LandingPage}
               authRedirect="/user"
+            />
+            <ProtectedRoute
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows LoginPage at /login
+              exact
+              path="/recipes"
+              component={RecipeList}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
