@@ -8,9 +8,11 @@ class Details extends Component {
 
   render() {
     return (
-      <div>
-          <h4>Details</h4>
-      </div>
+      <>
+        <h1>{this.props.store.details.name}</h1>
+        <img src={this.props.store.details.image} alt={this.props.store.details.name} />
+        <p>{this.props.store.details.description}</p>
+      </>
     );
   }
 }
