@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import RecipeListItem from '../RecipeListItem/RecipeListItem.jsx'
+
 
 class RecipeList extends Component {
   state = {
@@ -17,7 +19,7 @@ class RecipeList extends Component {
       <div className="list">
         { this.props.store.recipes.map((recipe) => {
           return(
-            <RecipeListItem recipe={recipe} key={recipe.id}/>
+            <RecipeListItem recipe={recipe} key={recipe.id} />
           )
         })}
       </div>
@@ -25,4 +27,4 @@ class RecipeList extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(RecipeList);
+export default connect(mapStoreToProps)(withRouter(RecipeList));

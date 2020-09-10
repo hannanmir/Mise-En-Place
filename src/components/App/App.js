@@ -23,6 +23,8 @@ import './App.css';
 import AddRecipe from '../AddRecipe/AddRecipe.jsx';
 import Pantry from '../Pantry/Pantry.jsx';
 import RecipeList from '../RecipeList/RecipeList.jsx'
+import Details from '../Details/Details.jsx'
+
 
 class App extends Component {
   componentDidMount() {
@@ -90,6 +92,11 @@ class App extends Component {
               exact
               path="/recipes"
               component={RecipeList}
+            />
+              <ProtectedRoute
+              exact
+              path="/details"
+              component={Details}
             />
             <ProtectedRoute
               exact

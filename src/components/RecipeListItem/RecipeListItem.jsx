@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,11 +13,16 @@ const useStyles = makeStyles({
     media: {
       height: 140,
     },
-  });
+});
 
-  export default function MediaCard(props) {
+
+  export default withRouter(connect(mapStoreToProps)(function MediaCard(props) {
     const classes = useStyles();
-  
+    const clickRecipe = (recipe) => {
+        console.log('Clicked', recipe);
+        props.dispatch({ type: 'WHICH_RECIPE', payload: recipe })
+        props.history.push('/details')
+    } 
     return (
       <Card className={classes.root}>
         <CardActionArea>
@@ -35,7 +41,7 @@ const useStyles = makeStyles({
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={ () => clickRecipe(props.recipe)}>
             Explore
           </Button>
           <Button size="small" color="primary">
@@ -44,4 +50,5 @@ const useStyles = makeStyles({
         </CardActions>
       </Card>
     );
-  }
+  }))
+
