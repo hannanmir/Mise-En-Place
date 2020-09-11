@@ -12,8 +12,9 @@ class AddRecipe extends Component {
         description: '',
         instructions: '',
         image: '',
-        ingredients: [],
-    }
+    },
+    newIngredient: '',
+    ingredients: [],
   };
 
   handleChangeFor = (event, propertyToChange) => {
@@ -26,37 +27,42 @@ class AddRecipe extends Component {
   }
 
   handleChangeIngredient = (event) => {
-      this.setState({
-          newRecipe: {
-              ...this.state.newRecipe,
-              ingredients: [
-                  ...this.state.ingriedients,
-                  event
-              ],
-          }
-      })
+    this.setState({
+        newIngredient: event.target.value,
+    })
+  }
+
+  addIngredient = () => {
+    this.setState({
+    ingredients: [...this.state.ingredients, this.state.newIngredient],
+    newIngredient: '',
+    })
+  }
+
+  clearInput = () => {
+    console.log(this.state.ingredients);
   }
 
   render() {
     return (
       <>
         <div className="input">
-            <TextField id="standard-basic" label="Ingredient" onChange = {(event) => this.handleChangeIngredient(event)}/>
+            <TextField label="Ingredient" value={this.state.newIngredient} onChange = {(event) => this.handleChangeIngredient(event)}/>
             <Button variant="contained" size="small" color="primary" onClick= {() => this.addIngredient()}>Add</Button>
             <Button variant="contained" size="small" color="secondary" onClick={ () => this.clearInput()}>Clear</Button>
         </div>
         <div className="input">
-            <TextField id="standard-basic" label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
+            <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
             <Button variant="contained" size="small" color="primary" onClick= {() => this.addImage()}>Add</Button>
             <Button variant="contained" size="small" color="secondary" onClick={ () => this.clearInput()}>Clear</Button>
         </div>
         <div className="input">
-            <TextField id="standard-basic" label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
+            <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
             <Button variant="contained" size="small" color="primary" onClick= {() => this.addName()}>Add</Button>
             <Button variant="contained" size="small" color="secondary" onClick={ () => this.clearInput()}>Clear</Button>
         </div>
         <div className="input">
-            <TextField id="standard-basic" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
+            <TextField label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
             <Button variant="contained" size="small" color="primary" onClick= {() => this.addDescription()}>Add</Button>
             <Button variant="contained" size="small" color="secondary" onClick={ () => this.clearInput()}>Clear</Button>
         </div>
