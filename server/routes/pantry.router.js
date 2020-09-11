@@ -2,11 +2,9 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// GET route, uses the user id to get all ingredients associated with that user
 router.get('/:id', (req, res) => {
-    let queryText = `SELECT "name" from "ingredient"
+    let queryText = `SELECT "name", "quantity", "inFridge" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
                     WHERE "user_ingredient".user_id = $1;`;
     pool.query(queryText, [req.params.id]).then(result => {
