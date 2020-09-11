@@ -14,6 +14,10 @@ img {
   max-width: 100%;
 }
 
+.input {
+  display: inline-flex
+}
+
 .progress {
   text-align: center;
 }

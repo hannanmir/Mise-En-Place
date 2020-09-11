@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Button, TextField } from '@material-ui/core';
-
+import { Button, TextField, MenuItem, Select } from '@material-ui/core';
 
 
 class AddRecipe extends Component {
@@ -13,7 +12,11 @@ class AddRecipe extends Component {
         instructions: '',
         image: '',
     },
-    newIngredient: '',
+    newIngredient: {
+        name: '',
+        quantitiy: '',
+        inFridge: false,
+    },    
     ingredients: [],
   };
 
@@ -26,16 +29,19 @@ class AddRecipe extends Component {
     })
   }
 
-  handleChangeIngredient = (event) => {
+  handleChangeIngredient = (event, propertyToChange) => {
     this.setState({
-        newIngredient: event.target.value,
+        newIngredient: {
+            ...this.state.newIngredient,
+            [propertyToChange]: event.target.value,
+        }
     })
   }
 
   addIngredient = () => {
     this.setState({
-    ingredients: [...this.state.ingredients, this.state.newIngredient],
-    newIngredient: '',
+        ingredients: [...this.state.ingredients, this.state.newIngredient],
+        newIngredient: {},
     })
   }
 
@@ -47,9 +53,14 @@ class AddRecipe extends Component {
     return (
       <>
         <div className="input">
-            <TextField label="Ingredient" value={this.state.newIngredient} onChange = {(event) => this.handleChangeIngredient(event)}/>
+            <TextField label="Ingredient" value={this.state.newIngredient.name} onChange = {(event) => this.handleChangeIngredient(event, 'name')}/>
+            <TextField label="Quantity" value={this.state.newIngredient.quantitiy} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/>
+            <Select value={this.state.newIngredient.inFridge} onChange={(value) => this.handleChangeIngredient(value, 'inFridge')}>
+                <MenuItem value={0}>In Fridge?</MenuItem>
+                <MenuItem value={true}>True</MenuItem>
+                <MenuItem value={false}>False</MenuItem>
+            </Select>
             <Button variant="contained" size="small" color="primary" onClick= {() => this.addIngredient()}>Add</Button>
-            <Button variant="contained" size="small" color="secondary" onClick={ () => this.clearInput()}>Clear</Button>
         </div>
         <div className="input">
             <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
