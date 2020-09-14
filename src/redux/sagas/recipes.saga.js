@@ -11,8 +11,18 @@ function* getRecipes() {
     }
 }
 
+function* addRecipe(action) {
+    try {
+        yield axios.post('/api/recipe', action.payload )
+        yield put({ type: 'GET_RECIPES' })
+    } catch (error) {
+        console.log('error in addRecipe', error);
+    }
+}
+
 function* recipesSaga() {
     yield takeLatest('GET_RECIPES', getRecipes);
+    yield takeLatest('ADD_RECIPE', addRecipe);
 }
 
 export default recipesSaga;

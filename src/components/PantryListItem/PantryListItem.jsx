@@ -75,7 +75,7 @@ class PantryListItem extends Component {
         <tr>
           <td>{this.props.ingredient.name}</td>
           <td>{this.props.ingredient.quantity}</td>
-          <td><Button variant="contained" size="small" color="primary" startIcon={<EditIcon />} onClick={() => this.editIngredient(this.props.ingredient.id)}>Edit</Button></td>
+          <td><Button variant="contained" size="small" color="primary" startIcon={<EditIcon />} onClick={() => this.editIngredient()}>Edit</Button></td>
           <td><Button variant="contained" size="small" color="secondary" startIcon={<DeleteIcon />} onClick={() => this.deleteIngredient(this.props.ingredient.id)}>Remove</Button></td>
         </tr>
       );

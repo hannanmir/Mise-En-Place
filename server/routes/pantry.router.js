@@ -6,7 +6,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     let queryText = `SELECT "user_ingredient".id, "name", "quantity", "inFridge" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
-                    WHERE "user_ingredient".user_id = $1;`;
+                    WHERE "user_ingredient".user_id = $1
+                    ORDER BY "id";`;
     pool.query(queryText, [req.user.id]).then(result => {
         res.send(result.rows);
     })
