@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { Button, TextField } from '@material-ui/core';
 import AddIngredient from '../AddIngredient/AddIngredient.jsx'
+import RecipeListItem from '../RecipeListItem/RecipeListItem.jsx'
 import swal from '@sweetalert/with-react';
 
 class AddRecipe extends Component {
@@ -49,11 +50,11 @@ class AddRecipe extends Component {
         swal('Please include all fields!');
     } else {      
       console.log(this.state.newIngredient);
-      this.props.dispatch({ type: 'ADD_RECIPE', payload: this.state.newRecipe})
+      this.props.dispatch({ type: 'ADD_RECIPE', payload: this.state.newRecipe});
       swal(`${this.state.newRecipe.name} was added!`, {
         buttons: false,
         timer: 1500,
-      })
+      });
       this.setState({
         newRecipe: {
             name: '',
@@ -61,15 +62,22 @@ class AddRecipe extends Component {
             description: '',
             instructions: '',
         }
-      })
+      });
+      this.clickRecipe();
     }
   }
+
+   clickRecipe = () => {
+    this.props.dispatch({ type: 'WHICH_RECIPE', payload: this.state.newRecipe })
+    this.props.history.push('/details')
+  } 
 
   render() {
     return (
       <>
         <div>
             {/* <AddIngredient /> */}
+            <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
         </div>
         <div>
             <div className="input">
