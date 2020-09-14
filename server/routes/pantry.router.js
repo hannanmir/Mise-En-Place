@@ -4,15 +4,29 @@ const router = express.Router();
 
 // GET route, uses the user id to get all ingredients associated with that user
 router.get('/', (req, res) => {
-    let queryText = `SELECT "user_ingredient".id, "name", "quantity", "inFridge" from "ingredient"
+    let queryText = `SELECT "user_ingredient".id, "name", "quantity" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
-                    WHERE "user_ingredient".user_id = $1
+                    WHERE "user_ingredient".user_id = $1 AND "inFridge" = false
                     ORDER BY "id";`;
     pool.query(queryText, [req.user.id]).then(result => {
         res.send(result.rows);
     })
     .catch(error => {
         console.log('error getting pantry', error);
+        res.sendStatus(500);
+    });
+})
+
+router.get('/fridge', (req, res) => {
+    let queryText = `SELECT "user_ingredient".id, "name", "quantity" from "ingredient"
+                    JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
+                    WHERE "user_ingredient".user_id = $1 AND "inFridge" = true
+                    ORDER BY "id";`;
+    pool.query(queryText, [req.user.id]).then(result => {
+        res.send(result.rows);
+    })
+    .catch(error => {
+        console.log('error getting fridge', error);
         res.sendStatus(500);
     });
 })

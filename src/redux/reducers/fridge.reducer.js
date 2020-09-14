@@ -1,6 +1,6 @@
-const pantry = (state = [], action) => {
+const fridge = (state = [], action) => {
     switch (action.type) {
-        case 'SET_PANTRY':
+        case 'SET_FRIDGE':
           return action.payload;
         case 'UNSET_USER':
           return [];
@@ -10,5 +10,5 @@ const pantry = (state = [], action) => {
 };
   
 
-  export default pantry;
+  export default fridge;
   

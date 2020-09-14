@@ -80,7 +80,7 @@ class AddRecipe extends Component {
   alertSpace = () => {
     swal('For adding recipe instructions use double spaces to indicate line breaks!', {
         buttons: false,
-        timer: 3500,
+        timer: 4500,
       });
   }
 
@@ -88,74 +88,74 @@ class AddRecipe extends Component {
     if (this.state.preview) {
         return (
             <>
-        <div className="input">
-            {/* <AddIngredient /> */}
-            <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
-        </div>
-        <div>
-            <div className="input">
-                <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
-            </div>
-        </div>
-        <div>
-            <div className="input">
-                <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
-            </div>
-        </div>
-        <div>
-            <div className="input">
-                <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
-            </div>
-        </div>
-        <div>
-            <div className="input">
-                <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
-            </div>
-        </div>
-        <div className="input">
-            <Button variant="contained" size="medium" color="primary" onClick= {() => this.saveRecipe()}>Save Recipe!</Button>
-            <Button variant="contained" size="medium" color="primary" startIcon={<VisibilityOffIcon />} onClick= {() => this.showPreview()}>Preview</Button>
-        </div>
-        <div>
-            <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
-        </div>
-      </>
-    )
+                <div className="input">
+                    {/* <AddIngredient /> */}
+                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
+                    </div>
+                </div>
+                <div className="input">
+                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.saveRecipe()}>Save Recipe!</Button>
+                    <Button variant="contained" size="medium" color="primary" startIcon={<VisibilityOffIcon />} onClick= {() => this.showPreview()}>Preview</Button>
+                </div>
+                <div>
+                    <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
+                </div>
+            </>
+        );
     } else {
         return (
-        <>
-            <div className="input">
-                {/* <AddIngredient /> */}
-                <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
-            </div>
-            <div>
+            <>
                 <div className="input">
-                    <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
+                    {/* <AddIngredient /> */}
+                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
                 </div>
-            </div>
-            <div>
+                <div>
+                    <div className="input">
+                        <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
+                    </div>
+                </div>
+                <div>
+                    <div className="input">
+                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
+                    </div>
+                </div>
                 <div className="input">
-                    <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
+                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.saveRecipe()}>Save Recipe!</Button>
+                    <Button variant="contained" size="medium" color="primary" startIcon={<VisibilityIcon />} onClick= {() => this.showPreview()}>Preview</Button>
                 </div>
-            </div>
-            <div>
-                <div className="input">
-                    <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
-                </div>
-            </div>
-            <div>
-                <div className="input">
-                    <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
-                </div>
-            </div>
-            <div className="input">
-                <Button variant="contained" size="medium" color="primary" onClick= {() => this.saveRecipe()}>Save Recipe!</Button>
-                <Button variant="contained" size="medium" color="primary" startIcon={<VisibilityIcon />} onClick= {() => this.showPreview()}>Preview</Button>
-            </div>
-        </>
+            </>
         );
+        }
     }
-  }
 }
 
 export default connect(mapStoreToProps)(AddRecipe);
