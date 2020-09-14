@@ -27,15 +27,15 @@ class Details extends Component {
               <p>{this.props.store.details.instructions}</p>
 
             </>
-          );
+        );
     } else {
         return (
-        <>
-            <h1>{this.props.store.details.name}</h1>
-            <img src={this.props.store.details.image} alt={this.props.store.details.name} />
-            <p>{this.props.store.details.description}</p>
-            <Button variant="contained" size="small" color="primary" startIcon={<VisibilityIcon />} onClick={() => this.showInstructions()}>Instructions</Button>
-        </>
+            <>
+                <h1>{this.props.store.details.name}</h1>
+                <img src={this.props.store.details.image} alt={this.props.store.details.name} />
+                <p>{this.props.store.details.description}</p>
+                <Button variant="contained" size="small" color="primary" startIcon={<VisibilityIcon />} onClick={() => this.showInstructions()}>Instructions</Button>
+            </>
         );
     }
   }
