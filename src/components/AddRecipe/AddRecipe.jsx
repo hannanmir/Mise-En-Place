@@ -20,6 +20,10 @@ class AddRecipe extends Component {
     preview: false,
   };
 
+  componentDidMount() {
+    this.alertSpace();
+  }
+
   handleChangeFor = (event, propertyToChange) => {
     this.setState({
         newRecipe: {
@@ -73,6 +77,13 @@ class AddRecipe extends Component {
       })
   }
 
+  alertSpace = () => {
+    swal('For adding recipe instructions use double spaces to indicate line breaks!', {
+        buttons: false,
+        timer: 3500,
+      });
+  }
+
   render() {
     if (this.state.preview) {
         return (
@@ -98,7 +109,7 @@ class AddRecipe extends Component {
         </div>
         <div>
             <div className="input">
-                <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')}/>
+                <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
             </div>
         </div>
         <div className="input">
@@ -134,7 +145,7 @@ class AddRecipe extends Component {
             </div>
             <div>
                 <div className="input">
-                    <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')}/>
+                    <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
                 </div>
             </div>
             <div className="input">
