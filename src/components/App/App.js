@@ -29,6 +29,8 @@ import Details from '../Details/Details.jsx'
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' });
+    this.props.dispatch({ type: 'GET_PANTRY'})
+    this.props.dispatch({ type: 'GET_RECIPES' })
   }
 
   render() {

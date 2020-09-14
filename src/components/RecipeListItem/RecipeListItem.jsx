@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     },
 });
 
-
   export default withRouter(connect(mapStoreToProps)(function MediaCard(props) {
     const classes = useStyles();
     const clickRecipe = (recipe) => {

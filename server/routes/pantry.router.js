@@ -4,7 +4,7 @@ const router = express.Router();
 
 // GET route, uses the user id to get all ingredients associated with that user
 router.get('/', (req, res) => {
-    let queryText = `SELECT "name", "quantity", "inFridge" from "ingredient"
+    let queryText = `SELECT "user_ingredient".id, "name", "quantity", "inFridge" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
                     WHERE "user_ingredient".user_id = $1;`;
     pool.query(queryText, [req.user.id]).then(result => {
@@ -39,6 +39,40 @@ router.post('/', async (req, res) => {
       } finally {
         await client.release();
       }
+});
+
+router.delete('/:id', (req, res) => {
+    console.log('In Delete:', req.params.id);
+    let queryText = `
+        DELETE FROM "user_ingredient"
+        WHERE "id" = $1;
+        `
+    pool.query(queryText, [req.params.id])
+        .then( (result) => {
+        console.log('Ingredient deleted');
+        res.sendStatus(200);
+    })
+    .catch( (error) => {
+        console.log('Error in delete', error);
+        res.sendStatus(500);
+    })
+});
+
+router.put('/', (req, res) => {
+    console.log("Editing", req.body);
+    let queryText = `
+        UPDATE "user_ingredient"
+        SET "quantity" = $1
+        WHERE "id" = $2;
+        `;
+    pool.query(queryText, [req.body.quantity, req.body.id])
+        .then((result) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log("error in PUT edit", error);
+        res.sendStatus(500);
+    });
 });
 
 module.exports = router;

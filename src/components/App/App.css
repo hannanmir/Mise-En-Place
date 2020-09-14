@@ -15,7 +15,8 @@ img {
 }
 
 .input {
-  display: inline-flex
+  display: inline-flex;
+  margin: 1em;
 }
 
 .progress {
