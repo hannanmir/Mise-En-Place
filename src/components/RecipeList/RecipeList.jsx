@@ -12,6 +12,7 @@ class RecipeList extends Component {
   componentDidMount() {
     console.log('App Mounted');
     this.props.dispatch({ type: 'GET_RECIPES' })
+    this.props.dispatch({ type: 'GET_FAVORITES' })
   }
 
   render() {

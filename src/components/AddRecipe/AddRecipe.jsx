@@ -114,16 +114,16 @@ class AddRecipe extends Component {
                 <div className="input">
                     <Tooltip title="Hide Preview">
                         <Fab color="primary" onClick= {() => this.showPreview()} >
-                            { !this.state.preview ?
-                            <VisibilityIcon onClick= {() => this.showPreview()} />
+                            { this.state.preview ?
+                            <VisibilityOffIcon />
                             :
-                            <VisibilityOffIcon onClick= {() => this.showPreview()} />
+                            <VisibilityIcon />
                         }
                         </Fab>
                     </Tooltip>    
                     <Tooltip title="Add Recipe!">                
                         <Fab color="primary" onClick= {() => this.saveRecipe()} >           
-                            <AddCircleIcon variant="contained" onClick= {() => this.saveRecipe()} />
+                            <AddCircleIcon variant="contained" />
                         </Fab>     
                     </Tooltip>    
                 </div>

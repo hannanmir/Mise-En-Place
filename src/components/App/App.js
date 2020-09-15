@@ -32,6 +32,7 @@ class App extends Component {
     this.props.dispatch({ type: 'GET_PANTRY'})
     this.props.dispatch({ type: 'GET_FRIDGE'})
     this.props.dispatch({ type: 'GET_RECIPES' })
+    this.props.dispatch({ type: 'GET_FAVORITES' })
   }
 
   render() {

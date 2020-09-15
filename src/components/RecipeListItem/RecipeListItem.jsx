@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
@@ -17,6 +17,7 @@ const useStyles = makeStyles({
 });
 
   export default withRouter(connect(mapStoreToProps)(function MediaCard(props) {
+    const [isFavorite, setIsFavorite] = useState(false);
     const classes = useStyles();
     const clickRecipe = (recipe) => {
         props.dispatch({ type: 'WHICH_RECIPE', payload: recipe })
@@ -25,6 +26,20 @@ const useStyles = makeStyles({
     const favoriteRecipe = (recipe) => {
         props.dispatch({ type: 'ADD_FAVORITE', payload: recipe })
     }
+    const unFavoriteRecipe = (recipe) => {
+        props.dispatch({ type: 'REMOVE_FAVORITE', payload: recipe })
+    }
+    const filterFavorites = () => {
+        for (let i = 0; i < props.store.favorites.length; i++) {
+           const favorite = props.store.favorites[i];
+           if (favorite.recipe_id === props.recipe.id) {
+                setIsFavorite(true);
+           }
+        }
+    }
+    useEffect(() => {
+        filterFavorites();
+    });
     return (
       <Card className={classes.root}>
         <CardActionArea>
@@ -49,8 +64,12 @@ const useStyles = makeStyles({
                 </Button>
             </Box>
             <Tooltip title="Favorite" >
-                <IconButton >
-                    <FavoriteIcon color="default" onClick= { () => favoriteRecipe(props.recipe)} />
+                <IconButton  >
+                    { isFavorite ?
+                        <FavoriteIcon color="secondary" onClick= { () => unFavoriteRecipe(props.recipe)} />
+                        :
+                        <FavoriteIcon onClick= { () => favoriteRecipe(props.recipe)} />
+                    }
                 </IconButton>
             </Tooltip>
         </CardActions>

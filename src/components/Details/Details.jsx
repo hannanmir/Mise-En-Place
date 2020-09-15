@@ -26,10 +26,10 @@ class Details extends Component {
             <p>{this.props.store.details.description}</p>
             <Tooltip title="Hide Instructions">
                 <Fab color="primary" onClick= {() => this.showInstructions()} >
-                    { !this.state.showing ?
-                    <VisibilityIcon onClick= {() => this.showInstructions()} />
-                    :
+                    { this.state.showing ?
                     <VisibilityOffIcon onClick= {() => this.showInstructions()} />
+                    :
+                    <VisibilityIcon onClick= {() => this.showInstructions()} />
                     }
                 </Fab>
             </Tooltip>

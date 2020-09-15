@@ -11,6 +11,16 @@ function* getRecipes() {
     }
 }
 
+function* getFavorites() {
+    try {
+        let response = yield axios.get('/api/recipe/favorites')
+        console.log('Favorities:', response.data);
+        yield put({type:'SET_FAVORITES', payload: response.data});
+    } catch (error) {
+        console.log('error in getFavorites', error)
+    }
+}
+
 function* addRecipe(action) {
     try {
         yield axios.post('/api/recipe', action.payload )
@@ -20,9 +30,20 @@ function* addRecipe(action) {
     }
 }
 
+function* addFavorite(action) {
+    try {
+        yield axios.post('/api/recipe/favorites', action.payload )
+        yield put({ type: 'GET_FAVORITES' })
+    } catch (error) {
+        console.log('error in addFavorite', error);
+    }
+}
+
 function* recipesSaga() {
     yield takeLatest('GET_RECIPES', getRecipes);
     yield takeLatest('ADD_RECIPE', addRecipe);
+    yield takeLatest('GET_FAVORITES', getFavorites);
+    yield takeLatest('ADD_FAVORITE', addFavorite);
 }
 
 export default recipesSaga;
