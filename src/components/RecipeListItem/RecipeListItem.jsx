@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Fab, Tooltip, IconButton, Box } from '@material-ui/core/';
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Tooltip, IconButton, Box } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles({
@@ -27,19 +27,22 @@ const useStyles = makeStyles({
         props.dispatch({ type: 'ADD_FAVORITE', payload: recipe })
     }
     const unFavoriteRecipe = (recipe) => {
-        props.dispatch({ type: 'REMOVE_FAVORITE', payload: recipe })
+        props.dispatch({ type: 'REMOVE_FAVORITE', payload: recipe.id })
     }
     const filterFavorites = () => {
         for (let i = 0; i < props.store.favorites.length; i++) {
            const favorite = props.store.favorites[i];
            if (favorite.recipe_id === props.recipe.id) {
                 setIsFavorite(true);
-           }
+                return;
+           } 
         }
+        setIsFavorite(false);
+        return;
     }
-    useEffect(() => {
+    useEffect( () => {
         filterFavorites();
-    });
+    },[props.store.favorites]);
     return (
       <Card className={classes.root}>
         <CardActionArea>
@@ -64,13 +67,15 @@ const useStyles = makeStyles({
                 </Button>
             </Box>
             <Tooltip title="Favorite" >
-                <IconButton  >
                     { isFavorite ?
-                        <FavoriteIcon color="secondary" onClick= { () => unFavoriteRecipe(props.recipe)} />
+                        <IconButton onClick= { () => unFavoriteRecipe(props.recipe)}  >
+                            <FavoriteIcon color="secondary" />
+                        </IconButton >
                         :
-                        <FavoriteIcon onClick= { () => favoriteRecipe(props.recipe)} />
+                        <IconButton onClick= { () => favoriteRecipe(props.recipe)} >
+                            <FavoriteIcon />
+                        </IconButton>
                     }
-                </IconButton>
             </Tooltip>
         </CardActions>
       </Card>

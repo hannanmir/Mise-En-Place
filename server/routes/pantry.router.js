@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     });
 })
 
+// GET the ingredients in the fridge for the user
 router.get('/fridge', (req, res) => {
     let queryText = `SELECT "user_ingredient".id, "name", "quantity" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
@@ -31,9 +32,7 @@ router.get('/fridge', (req, res) => {
     });
 })
 
-/**
- * POST route template
- */
+// POST new ingredient for the user
 router.post('/', async (req, res) => {
     console.log('Adding new ingredient:', req.body);
     const client = await pool.connect();
@@ -56,6 +55,7 @@ router.post('/', async (req, res) => {
       }
 });
 
+// DELETE a ingredient for the user
 router.delete('/:id', (req, res) => {
     console.log('In Delete:', req.params.id);
     let queryText = `
@@ -73,6 +73,7 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+// UPDATE a ingredient for the user
 router.put('/', (req, res) => {
     console.log("Editing", req.body);
     let queryText = `

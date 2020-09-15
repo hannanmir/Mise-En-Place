@@ -58,4 +58,22 @@ router.post('/favorites', (req, res) => {
     });
 });
 
+// DELETE a favorite for the user
+router.delete('/favorites/:id', (req, res) => {
+    console.log('In Delete:', req.params.id);
+    let queryText = `
+        DELETE FROM "favorites"
+        WHERE "recipe_id" = $1 AND "user_id" = $2;
+        `
+    pool.query(queryText, [req.params.id, req.user.id])
+        .then( (result) => {
+        console.log('Unfavorited');
+        res.sendStatus(200);
+    })
+    .catch( (error) => {
+        console.log('Error in unfavorite', error);
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;

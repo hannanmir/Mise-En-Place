@@ -39,11 +39,20 @@ function* addFavorite(action) {
     }
 }
 
+function* removeFavorite (action){
+    try {
+        yield axios.delete(`/api/recipe/favorites/${action.payload}`)
+        yield put({ type: 'GET_FAVORITES' })
+    } catch (error) {
+        console.log('error in removeFavorite', error);
+    }
+}
 function* recipesSaga() {
     yield takeLatest('GET_RECIPES', getRecipes);
     yield takeLatest('ADD_RECIPE', addRecipe);
     yield takeLatest('GET_FAVORITES', getFavorites);
     yield takeLatest('ADD_FAVORITE', addFavorite);
+    yield takeLatest('REMOVE_FAVORITE', removeFavorite);
 }
 
 export default recipesSaga;
