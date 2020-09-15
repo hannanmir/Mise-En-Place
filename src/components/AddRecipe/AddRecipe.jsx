@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Button, TextField, TextareaAutosize } from '@material-ui/core';
+import { Button, TextField, Tooltip, Fab } from '@material-ui/core';
 import AddIngredient from '../AddIngredient/AddIngredient.jsx'
 import RecipeListItem from '../RecipeListItem/RecipeListItem.jsx'
 import swal from '@sweetalert/with-react';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 class AddRecipe extends Component {
   state = {
@@ -84,8 +84,7 @@ class AddRecipe extends Component {
       });
   }
 
-  render() {
-    if (this.state.preview) {
+    render() {
         return (
             <>
                 <div className="input">
@@ -113,48 +112,28 @@ class AddRecipe extends Component {
                     </div>
                 </div>
                 <div className="input">
-                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.saveRecipe()}>Save Recipe!</Button>
-                    <Button variant="contained" size="medium" color="primary" startIcon={<VisibilityOffIcon />} onClick= {() => this.showPreview()}>Preview</Button>
+                    <Tooltip title="Hide Preview">
+                        <Fab color="primary" onClick= {() => this.showPreview()} >
+                            { !this.state.preview ?
+                            <VisibilityIcon onClick= {() => this.showPreview()} />
+                            :
+                            <VisibilityOffIcon onClick= {() => this.showPreview()} />
+                        }
+                        </Fab>
+                    </Tooltip>    
+                    <Tooltip title="Add Recipe!">                
+                        <Fab color="primary" onClick= {() => this.saveRecipe()} >           
+                            <AddCircleIcon variant="contained" onClick= {() => this.saveRecipe()} />
+                        </Fab>     
+                    </Tooltip>    
                 </div>
+                { this.state.preview &&
                 <div>
                     <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
                 </div>
+                }
             </>
         );
-    } else {
-        return (
-            <>
-                <div className="input">
-                    {/* <AddIngredient /> */}
-                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
-                    </div>
-                </div>
-                <div className="input">
-                    <Button variant="contained" size="medium" color="primary" onClick= {() => this.saveRecipe()}>Save Recipe!</Button>
-                    <Button variant="contained" size="medium" color="primary" startIcon={<VisibilityIcon />} onClick= {() => this.showPreview()}>Preview</Button>
-                </div>
-            </>
-        );
-        }
     }
 }
 

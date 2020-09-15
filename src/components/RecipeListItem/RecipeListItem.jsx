@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Fab, Tooltip, IconButton, Box } from '@material-ui/core/';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles({
     root: {
@@ -18,10 +19,12 @@ const useStyles = makeStyles({
   export default withRouter(connect(mapStoreToProps)(function MediaCard(props) {
     const classes = useStyles();
     const clickRecipe = (recipe) => {
-        console.log('Clicked', recipe);
         props.dispatch({ type: 'WHICH_RECIPE', payload: recipe })
         props.history.push('/details')
     } 
+    const favoriteRecipe = (recipe) => {
+        props.dispatch({ type: 'ADD_FAVORITE', payload: recipe })
+    }
     return (
       <Card className={classes.root}>
         <CardActionArea>
@@ -40,12 +43,16 @@ const useStyles = makeStyles({
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={ () => clickRecipe(props.recipe)}>
-            Explore
-          </Button>
-          <Button size="small" color="primary">
-            Favorite
-          </Button>
+            <Box display='flex' flexGrow={1}>
+                <Button size="small" color="primary" onClick={ () => clickRecipe(props.recipe)} >
+                    Explore
+                </Button>
+            </Box>
+            <Tooltip title="Favorite" >
+                <IconButton >
+                    <FavoriteIcon color="default" onClick= { () => favoriteRecipe(props.recipe)} />
+                </IconButton>
+            </Tooltip>
         </CardActions>
       </Card>
     );
