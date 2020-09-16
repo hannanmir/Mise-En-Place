@@ -41,7 +41,7 @@ function* removeIngredient(action) {
     }
 }
 
-function* editIngredient (action) {
+function* editIngredient(action) {
     try {
         yield axios.put(`/api/pantry/`, action.payload)
         yield put({ type: 'GET_PANTRY' })
@@ -51,12 +51,32 @@ function* editIngredient (action) {
     }
 }
 
+function* getRecipeIngredient(action) {
+    try {
+        let response = yield axios.get(`/api/pantry/recipe/${action.payload}`)
+        console.log('Recipe Ingredients:', response.data);
+        yield put({type:'SET_INGREDIENTS', payload: response.data});
+    } catch (error) {
+        console.log('error in getRecipeIngredients', error)
+    }
+}
+
+function* addRecipeIngredient(action) {
+    try {
+        yield axios.post('/api/pantry/recipe', action.payload )
+    } catch (error) {
+        console.log('error in addRecipeIngredient', error);
+    }
+}
+
 function* pantrySaga() {
     yield takeLatest('GET_PANTRY', getPantry);
     yield takeLatest('GET_FRIDGE', getFridge);
+    yield takeLatest('GET_INGREDIENTS', getRecipeIngredient);
     yield takeLatest('ADD_INGREDIENT', addIngredient);
     yield takeLatest('REMOVE_INGREDIENT', removeIngredient);
     yield takeLatest('EDIT_INGREDIENT', editIngredient);
+    yield takeLatest('ADD_RECIPE_INGREDIENT', addRecipeIngredient);
 }
 
 export default pantrySaga;

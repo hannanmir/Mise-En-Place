@@ -23,6 +23,15 @@ img {
   margin-left: 8em;
 }
 
+.detailsh1 {
+  display: inline;
+  margin-left: 25em;
+}
+
+.detailsh2 {
+  display: inline;
+}
+
 .progress {
   text-align: center;
 }

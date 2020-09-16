@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Button, TextField, MenuItem, Select } from '@material-ui/core';
+import { TextField, MenuItem, Select, IconButton, Tooltip } from '@material-ui/core';
 import swal from '@sweetalert/with-react';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 class AddIngredient extends Component {
     state = {
@@ -49,7 +50,11 @@ class AddIngredient extends Component {
                     <MenuItem value={true}>True</MenuItem>
                     <MenuItem value={false}>False</MenuItem>
                 </Select>
-                <Button variant="contained" size="small" color="primary" onClick= {() => this.addIngredient()}>Add</Button>
+                <Tooltip title="Add" >
+                    <IconButton onClick= {() => this.addIngredient()} >
+                        <AddBoxIcon color="primary" size="medium" />
+                    </IconButton>
+                </Tooltip>
             </div>
         </>
     );

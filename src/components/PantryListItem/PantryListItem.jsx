@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import swal from '@sweetalert/with-react';
-import { Button, TextField } from '@material-ui/core';
+import { TextField, Tooltip, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
@@ -61,25 +61,40 @@ class PantryListItem extends Component {
   }
 
   render() {
-    if (this.state.editing) {
       return (
         <tr>
           <td>{this.props.ingredient.name}</td>
-          <td><TextField value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/></td>
-          <td><Button variant="contained" size="small" color="default" startIcon={<SaveIcon />} onClick={() => this.saveIngredient(this.props.ingredient.id)}>Save</Button></td>
-          <td><Button variant="contained" size="small" color="secondary" startIcon={<DeleteIcon />} onClick={() => this.deleteIngredient(this.props.ingredient.id)}>Remove</Button></td>
+          { this.state.editing ?
+            <td><TextField value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/></td>
+          :
+            <td>{this.props.ingredient.quantity}</td>
+          }
+          { this.state.editing ?
+            <td>
+              <Tooltip title="Save" >
+                <IconButton onClick={() => this.saveIngredient(this.props.ingredient.id)} >
+                    <SaveIcon /> 
+                </IconButton>
+              </Tooltip>
+            </td>
+          :
+            <td>
+              <Tooltip title="Edit" >
+                <IconButton onClick={() => this.editIngredient(this.props.ingredient.id)} >
+                    <EditIcon color="primary" /> 
+                </IconButton>
+              </Tooltip>
+            </td>
+          }
+            <td>
+              <Tooltip title="Delete" >
+                <IconButton onClick={() => this.deleteIngredient(this.props.ingredient.id)} >
+                    <DeleteIcon color="secondary" /> 
+                </IconButton>
+              </Tooltip>
+            </td>
         </tr>
       )
-    } else {
-      return (
-        <tr>
-          <td>{this.props.ingredient.name}</td>
-          <td>{this.props.ingredient.quantity}</td>
-          <td><Button variant="contained" size="small" color="primary" startIcon={<EditIcon />} onClick={() => this.editIngredient()}>Edit</Button></td>
-          <td><Button variant="contained" size="small" color="secondary" startIcon={<DeleteIcon />} onClick={() => this.deleteIngredient(this.props.ingredient.id)}>Remove</Button></td>
-        </tr>
-      );
-    }
   }
 }
 

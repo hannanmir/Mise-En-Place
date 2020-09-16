@@ -32,6 +32,44 @@ router.get('/fridge', (req, res) => {
     });
 })
 
+// GET recipe ingredients 
+router.get('/recipe/:id', (req, res) => {
+    let queryText = `SELECT "ingredient_id", "quantity", "inFridge", "ingredient".name from "ingredient_recipe"
+                    JOIN "ingredient" on "ingredient_recipe".ingredient_id = "ingredient".id
+                    WHERE "recipe_id" = $1;`;
+    pool.query(queryText, [req.params.id]).then(result => {
+        res.send(result.rows);
+    })
+    .catch(error => {
+        console.log('error getting recipe ingredients', error);
+        res.sendStatus(500);
+    });
+})
+
+// POST recipe ingredients
+router.post('/recipe', async (req, res) => {
+    console.log('Adding new recipe ingredient:', req.body);
+    const client = await pool.connect();
+    try {
+        const firstQuery = `INSERT INTO "ingredient" ("name")
+                            VALUES ($1) RETURNING "id";`;
+        const secondQuery = `INSERT INTO "ingredient_recipe" ("recipe_id", "ingredient_id", "quantity", "inFridge")
+                            VALUES ($1, $2, $3, $4);`;
+        await client.query('BEGIN');
+        const result = await client.query(firstQuery, [req.body.name])
+        await client.query(secondQuery, [req.body.recipe_id, result.rows[0].id, req.body.quantity, req.body.inFridge])
+        await client.query('COMMIT');
+        res.sendStatus(201)
+    }  catch (error) {
+        console.log(error);
+        await client.query('ROLLBACK')
+        res.sendStatus(500)
+      } finally {
+        await client.release();
+      }
+});
+
+
 // POST new ingredient for the user
 router.post('/', async (req, res) => {
     console.log('Adding new ingredient:', req.body);

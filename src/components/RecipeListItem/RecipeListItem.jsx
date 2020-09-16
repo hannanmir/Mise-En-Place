@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Tooltip, IconButton, Box } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -42,7 +41,7 @@ const useStyles = makeStyles({
     }
     useEffect( () => {
         filterFavorites();
-    },[props.store.favorites]);
+    });
     return (
       <Card className={classes.root}>
         <CardActionArea>
