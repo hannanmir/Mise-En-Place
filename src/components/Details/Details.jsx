@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Tooltip, IconButton, TextField, Select, MenuItem } from '@material-ui/core';
+import { Tooltip, IconButton, TextField, Select, MenuItem, Paper } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -119,7 +119,7 @@ class Details extends Component {
         const splitLines = str => str.split('  ');
         const string = splitLines(this.state.newRecipe.instructions)
         return (
-            <div>
+            <Paper>
                 { this.state.editing ?
                     // EDITING MODE ON
                     <div className="details">
@@ -317,7 +317,7 @@ class Details extends Component {
                         </div>
                     </div>
                 }
-            </div>
+            </Paper>
         );
     }
 }

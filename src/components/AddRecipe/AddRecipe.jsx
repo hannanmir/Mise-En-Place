@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Button, TextField, Tooltip, Fab } from '@material-ui/core';
+import { Button, TextField, Tooltip, Fab, Paper } from '@material-ui/core';
 import RecipeListItem from '../RecipeListItem/RecipeListItem.jsx'
 import swal from '@sweetalert/with-react';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -85,7 +85,8 @@ class AddRecipe extends Component {
 
     render() {
         return (
-            <>
+            <div>
+                <Paper>
                 <div>
                     <div className="input">
                         <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
@@ -134,7 +135,8 @@ class AddRecipe extends Component {
                     </div>
                     }
                 </div>
-            </>
+            </Paper>
+            </div>
         );
     }
 }

@@ -9,6 +9,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles({
     root: {
       maxWidth: 345,
+      height: "100%",
     },
     media: {
       height: 140,
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions >
             <Box display='flex' flexGrow={1}>
                 <Button size="small" color="primary" onClick={ () => clickRecipe(props.recipe)} >
                     Explore

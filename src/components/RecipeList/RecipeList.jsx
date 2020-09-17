@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import RecipeListItem from '../RecipeListItem/RecipeListItem.jsx'
-
+import { Grid } from '@material-ui/core';
 
 class RecipeList extends Component {
   state = {
@@ -17,13 +17,18 @@ class RecipeList extends Component {
 
   render() {
     return (
-      <div className="list">
+      <Grid 
+        container 
+        spacing={2}
+        >
         { this.props.store.recipes.map((recipe) => {
           return(
-            <RecipeListItem recipe={recipe} key={recipe.id} />
+            <Grid xs={3} item>
+              <RecipeListItem recipe={recipe} key={recipe.id} />
+            </Grid >
           )
         })}
-      </div>
+      </Grid>
     );
   }
 }
