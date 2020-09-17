@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import 'fontsource-roboto';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 

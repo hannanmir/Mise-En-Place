@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import AddIngredient from '../AddIngredient/AddIngredient.jsx'
 import PantryListItem from '../PantryListItem/PantryListItem.jsx'
+import { Typography } from '@material-ui/core';
 
 class Pantry extends Component {
     state = {
@@ -21,12 +22,12 @@ class Pantry extends Component {
         <>
             <AddIngredient />
             <div className="table">
-                <h4>Pantry</h4>
+                <Typography><h4>Pantry</h4></Typography>
                 <table>
                     <thead>
                         <tr>
-                            <th>Ingredient</th>
-                            <th>Quantity</th>
+                            <th><Typography>Ingredient</Typography></th>
+                            <th><Typography>Quantity</Typography></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,12 +40,12 @@ class Pantry extends Component {
                 </table> 
             </div>
             <div className="table">
-                <h4>In Fridge</h4>
+                <Typography><h4>In Fridge</h4></Typography>
                 <table>
                     <thead>
                         <tr>
-                            <th>Ingredient</th>
-                            <th>Quantity</th>
+                            <th><Typography>Ingredient</Typography></th>
+                            <th><Typography>Quantity</Typography></th>
                         </tr>
                     </thead>
                     <tbody>

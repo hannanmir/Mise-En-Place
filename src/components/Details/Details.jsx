@@ -8,7 +8,6 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import IngredientList from '../IngredientList/IngredientList.jsx'
 import NoEditIngredientList from '../NoEditIngredientList/NoEditIngredientList.jsx'
 import swal from '@sweetalert/with-react';
-import App from '../App/App';
 
 class Details extends Component {
   state = {
