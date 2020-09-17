@@ -76,4 +76,38 @@ router.delete('/favorites/:id', (req, res) => {
     })
 });
 
+// UPDATE a recipe 
+router.put('/', async (req, res) => {
+    console.log('Editing recipe:', req.body);
+    
+    const client = await pool.connect();
+    try {
+        const firstQuery = `UPDATE "recipe"
+                            SET "name" = $1
+                            WHERE "id" = $2;`;
+        const secondQuery = `UPDATE "recipe"
+                            SET "description" = $1
+                            WHERE "id" = $2;`;
+        const thirdQuery = `UPDATE "recipe"
+                            SET "instructions" = $1
+                            WHERE "id" = $2;`;
+        const fourthQuery = `UPDATE "recipe"
+                            SET "image" = $1
+                            WHERE "id" = $2;`;
+        await client.query('BEGIN');
+        await client.query(firstQuery, [req.body.name, req.body.id])
+        await client.query(secondQuery, [req.body.description, req.body.id])
+        await client.query(thirdQuery, [req.body.instructions, req.body.id])
+        await client.query(fourthQuery, [req.body.image, req.body.id])
+        await client.query('COMMIT');
+        res.sendStatus(201)
+    }  catch (error) {
+        console.log(error);
+        await client.query('ROLLBACK')
+        res.sendStatus(500)
+      } finally {
+        await client.release();
+      }
+});
+
 module.exports = router;

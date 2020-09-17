@@ -30,6 +30,15 @@ function* addRecipe(action) {
     }
 }
 
+function* editRecipe(action) {
+    try {
+        yield axios.put('/api/recipe', action.payload )
+        yield put({ type: 'GET_RECIPES' })
+    } catch (error) {
+        console.log('error in editRecipe', error);
+    }
+}
+
 function* addFavorite(action) {
     try {
         yield axios.post('/api/recipe/favorites', action.payload )
@@ -47,9 +56,11 @@ function* removeFavorite (action){
         console.log('error in removeFavorite', error);
     }
 }
+
 function* recipesSaga() {
     yield takeLatest('GET_RECIPES', getRecipes);
     yield takeLatest('ADD_RECIPE', addRecipe);
+    yield takeLatest('EDIT_RECIPE', editRecipe);
     yield takeLatest('GET_FAVORITES', getFavorites);
     yield takeLatest('ADD_FAVORITE', addFavorite);
     yield takeLatest('REMOVE_FAVORITE', removeFavorite);

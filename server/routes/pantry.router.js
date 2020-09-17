@@ -103,7 +103,7 @@ router.delete('/:id', async (req, res) => {
         const secondQuery = `DELETE FROM "ingredient"
                              WHERE "id" = $1;`;
         await client.query('BEGIN');
-        const result = await client.query(firstQuery, [req.params.id])
+        await client.query(firstQuery, [req.params.id])
         await client.query(secondQuery, [req.params.id])
         await client.query('COMMIT');
         res.sendStatus(201)
@@ -126,7 +126,7 @@ router.delete('/recipe/:id', async (req, res) => {
         const secondQuery = `DELETE FROM "ingredient"
                              WHERE "id" = $1;`;
         await client.query('BEGIN');
-        const result = await client.query(firstQuery, [req.params.id])
+        await client.query(firstQuery, [req.params.id])
         await client.query(secondQuery, [req.params.id])
         await client.query('COMMIT');
         res.sendStatus(201)
