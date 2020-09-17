@@ -8,6 +8,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import IngredientList from '../IngredientList/IngredientList.jsx'
 import NoEditIngredientList from '../NoEditIngredientList/NoEditIngredientList.jsx'
 import swal from '@sweetalert/with-react';
+import App from '../App/App';
 
 class Details extends Component {
   state = {
@@ -113,35 +114,34 @@ class Details extends Component {
             { this.state.editing ?
                 // EDITING MODE ON
                 <div className="details">
+                    <div className="edit">
+                            <Tooltip title="Save Changes" >
+                                <IconButton onClick={() => this.toggleEdit()} >
+                                    <SaveIcon color="primary" /> 
+                                </IconButton>
+                            </Tooltip>
+                    </div>
                     { this.state.editName ?
                         // EDIT NAME ON
-                        <>
+                        <h1>
                             <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
                             <Tooltip title="Save Changes" >
-                            <IconButton onClick={() => this.editName()} >
-                                <SaveIcon color="primary" /> 
-                            </IconButton>
+                                <IconButton onClick={() => this.editName()} >
+                                    <SaveIcon color="primary" /> 
+                                </IconButton>
                             </Tooltip>    
-                        </>
+                        </h1>
                         :
                         // EDIT NAME OFF
-                        <>
-                            <h1 className="detailsh2">{this.state.newRecipe.name}</h1>
+                        <h1>
+                            {this.state.newRecipe.name}
                             <Tooltip title="Edit Name" >
                                 <IconButton onClick={() => this.editName()} >
                                     <EditIcon color="primary" /> 
                                 </IconButton>
                             </Tooltip>
-                        </>
+                        </h1>
                     }
-                    {/* Button to toggle global edit mode */}
-                    <h1 className="detailsh1">
-                        <Tooltip title="Save Changes" >
-                            <IconButton onClick={() => this.toggleEdit()} >
-                                <SaveIcon color="primary" /> 
-                            </IconButton>
-                        </Tooltip>
-                    </h1>
                     { this.state.editImage ?
                         // EDIT IMAGE ON
                         <>
@@ -278,14 +278,14 @@ class Details extends Component {
                 :
                 // EDITING MODE OFF
                 <div className="details">
-                    <h1 className="detailsh2">{this.props.store.details.name}</h1>
-                    <h1 className="detailsh1">
+                    <div className="edit">
                         <Tooltip title="Edit Recipe" >
                             <IconButton onClick={() => this.toggleEdit()} >
                                 <EditIcon color="primary" /> 
                             </IconButton>
                         </Tooltip>
-                    </h1>
+                    </div>
+                    <h1>{this.props.store.details.name}</h1>
                     <img src={this.props.store.details.image} alt={this.props.store.details.name} />
                     <p>{this.props.store.details.description}</p>
                     <div>
