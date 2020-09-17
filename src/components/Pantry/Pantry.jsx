@@ -32,7 +32,7 @@ class Pantry extends Component {
                     <tbody>
                         {this.props.store.pantry.map((ingredient) => {
                             return (
-                                <PantryListItem key={ingredient.id} ingredient={ingredient}/>
+                                <PantryListItem key={ingredient.ingredient_id} ingredient={ingredient}/>
                             );
                         })}
                     </tbody>
@@ -50,7 +50,7 @@ class Pantry extends Component {
                     <tbody>
                         {this.props.store.fridge.map((ingredient) => {
                             return (
-                                <PantryListItem key={ingredient.id} ingredient={ingredient}/>
+                                <PantryListItem key={ingredient.ingredient_id} ingredient={ingredient}/>
                             );
                         })}
                     </tbody>

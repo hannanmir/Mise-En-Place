@@ -6,6 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import IngredientList from '../IngredientList/IngredientList.jsx'
+import NoEditIngredientList from '../NoEditIngredientList/NoEditIngredientList.jsx'
 import swal from '@sweetalert/with-react';
 
 class Details extends Component {
@@ -101,7 +102,6 @@ class Details extends Component {
                 recipe_id: this.props.store.details.id,
             }
         });
-        this.props.dispatch({ type: 'GET_INGREDIENTS', payload: this.props.store.details.id })
     }
 }
 
@@ -169,8 +169,8 @@ class Details extends Component {
                         <p>
                             <TextField multiline={true} variant="outlined" fullWidth={false} size="small" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
                             <Tooltip title="Save Changes" >
-                            <IconButton onClick={() => this.editDescription()} >
-                                <SaveIcon color="primary" /> 
+                                <IconButton onClick={() => this.editDescription()} >
+                                    <SaveIcon color="primary" /> 
                             </IconButton>
                             </Tooltip>    
                         </p>
@@ -188,7 +188,14 @@ class Details extends Component {
                     { this.state.editIngredients ?
                         // EDIT INGREDIENTS ON 
                         <div>
-                            <h4>Ingredients</h4>
+                            <h4>
+                                Ingredients
+                                <Tooltip title="Save Changes" >
+                                    <IconButton onClick={() => this.editIngredients()} >
+                                        <SaveIcon color="primary" /> 
+                                    </IconButton>
+                                </Tooltip>
+                            </h4>
                             <div className="input">
                                 <TextField label="Ingredient" value={this.state.newIngredient.name} onChange = {(event) => this.handleChangeIngredient(event, 'name')}/>
                                 <TextField label="Quantity" value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/>
@@ -225,7 +232,7 @@ class Details extends Component {
                             <div className="list">
                                 {this.props.store.ingredients.map((ingredient) => {
                                     return (
-                                        <IngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
+                                        <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
                                     );
                                 })}
                             </div>
@@ -286,7 +293,7 @@ class Details extends Component {
                             <div className="list">
                                 {this.props.store.ingredients.map((ingredient) => {
                                     return (
-                                        <IngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
+                                        <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
                                     );
                                 })}
                             </div>

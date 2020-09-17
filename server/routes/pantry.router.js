@@ -4,10 +4,10 @@ const router = express.Router();
 
 // GET route, uses the user id to get all ingredients associated with that user
 router.get('/', (req, res) => {
-    let queryText = `SELECT "user_ingredient".id, "name", "quantity" from "ingredient"
+    let queryText = `SELECT "user_ingredient".ingredient_id, "name", "quantity" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
                     WHERE "user_ingredient".user_id = $1 AND "inFridge" = false
-                    ORDER BY "id";`;
+                    ORDER BY "ingredient".id;`;
     pool.query(queryText, [req.user.id]).then(result => {
         res.send(result.rows);
     })
@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
 
 // GET the ingredients in the fridge for the user
 router.get('/fridge', (req, res) => {
-    let queryText = `SELECT "user_ingredient".id, "name", "quantity" from "ingredient"
+    let queryText = `SELECT "user_ingredient".ingredient_id, "name", "quantity" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
                     WHERE "user_ingredient".user_id = $1 AND "inFridge" = true
-                    ORDER BY "id";`;
+                    ORDER BY "ingredient".id;`;
     pool.query(queryText, [req.user.id]).then(result => {
         res.send(result.rows);
     })
@@ -94,21 +94,49 @@ router.post('/', async (req, res) => {
 });
 
 // DELETE a ingredient for the user
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     console.log('In Delete:', req.params.id);
-    let queryText = `
-        DELETE FROM "user_ingredient"
-        WHERE "id" = $1;
-        `
-    pool.query(queryText, [req.params.id])
-        .then( (result) => {
-        console.log('Ingredient deleted');
-        res.sendStatus(200);
-    })
-    .catch( (error) => {
-        console.log('Error in delete', error);
-        res.sendStatus(500);
-    })
+    const client = await pool.connect();
+    try {
+        const firstQuery = `DELETE FROM "user_ingredient"
+                            WHERE "ingredient_id" = $1;`;
+        const secondQuery = `DELETE FROM "ingredient"
+                             WHERE "id" = $1;`;
+        await client.query('BEGIN');
+        const result = await client.query(firstQuery, [req.params.id])
+        await client.query(secondQuery, [req.params.id])
+        await client.query('COMMIT');
+        res.sendStatus(201)
+    }  catch (error) {
+        console.log(error);
+        await client.query('ROLLBACK')
+        res.sendStatus(500)
+      } finally {
+        await client.release();
+      }
+});
+
+// DELETE recipe ingredient
+router.delete('/recipe/:id', async (req, res) => {
+    console.log('In Delete:', req.params.id);
+    const client = await pool.connect();
+    try {
+        const firstQuery = `DELETE FROM "ingredient_recipe"
+                            WHERE "ingredient_id" = $1;`;
+        const secondQuery = `DELETE FROM "ingredient"
+                             WHERE "id" = $1;`;
+        await client.query('BEGIN');
+        const result = await client.query(firstQuery, [req.params.id])
+        await client.query(secondQuery, [req.params.id])
+        await client.query('COMMIT');
+        res.sendStatus(201)
+    }  catch (error) {
+        console.log(error);
+        await client.query('ROLLBACK')
+        res.sendStatus(500)
+      } finally {
+        await client.release();
+      }
 });
 
 // UPDATE a ingredient for the user
@@ -117,9 +145,27 @@ router.put('/', (req, res) => {
     let queryText = `
         UPDATE "user_ingredient"
         SET "quantity" = $1
-        WHERE "id" = $2;
+        WHERE "ingredient_id" = $2;
         `;
-    pool.query(queryText, [req.body.quantity, req.body.id])
+    pool.query(queryText, [req.body.quantity, req.body.ingredient_id])
+        .then((result) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log("error in PUT edit", error);
+        res.sendStatus(500);
+    });
+});
+
+// UPDATE a ingredient for a recipe
+router.put('/recipe', (req, res) => {
+    console.log("Editing", req.body);
+    let queryText = `
+        UPDATE "ingredient_recipe"
+        SET "quantity" = $1
+        WHERE "ingredient_id" = $2;
+        `;
+    pool.query(queryText, [req.body.quantity, req.body.ingredient_id])
         .then((result) => {
         res.sendStatus(200);
     })

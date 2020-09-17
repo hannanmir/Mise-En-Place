@@ -10,7 +10,7 @@ import SaveIcon from '@material-ui/icons/Save';
 class PantryListItem extends Component {
   state = {
     editing: false,
-    newIngredient: {}
+    newIngredient: this.props.ingredient
   };
 
   componentDidMount() {
@@ -63,11 +63,11 @@ class PantryListItem extends Component {
   render() {
       return (
         <tr>
-          <td>{this.props.ingredient.name}</td>
+          <td>{this.state.newIngredient.name}</td>
           { this.state.editing ?
             <td><TextField value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/></td>
           :
-            <td>{this.props.ingredient.quantity}</td>
+            <td>{this.state.newIngredient.quantity}</td>
           }
           { this.state.editing ?
             <td>
@@ -88,7 +88,7 @@ class PantryListItem extends Component {
           }
             <td>
               <Tooltip title="Delete" >
-                <IconButton onClick={() => this.deleteIngredient(this.props.ingredient.id)} >
+                <IconButton onClick={() => this.deleteIngredient(this.props.ingredient.ingredient_id)} >
                     <DeleteIcon color="secondary" /> 
                 </IconButton>
               </Tooltip>
