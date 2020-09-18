@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Tooltip, IconButton, TextField, Select, MenuItem, Paper } from '@material-ui/core';
+import { Tooltip, IconButton, TextField, Select, MenuItem, Paper, Grid } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import IngredientList from '../IngredientList/IngredientList.jsx'
 import NoEditIngredientList from '../NoEditIngredientList/NoEditIngredientList.jsx'
 import swal from '@sweetalert/with-react';
+import './Details.css';
 
 class Details extends Component {
     state = {
@@ -114,11 +115,15 @@ class Details extends Component {
         })
     }
 
-
     render() {
         const splitLines = str => str.split('  ');
         const string = splitLines(this.state.newRecipe.instructions)
         return (
+            <Grid 
+            container
+            justify={"center"}
+            alignItems={"center"}
+            >
             <Paper>
                 { this.state.editing ?
                     // EDITING MODE ON
@@ -318,6 +323,7 @@ class Details extends Component {
                     </div>
                 }
             </Paper>
+            </Grid>
         );
     }
 }

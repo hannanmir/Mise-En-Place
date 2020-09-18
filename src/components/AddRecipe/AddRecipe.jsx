@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Button, TextField, Tooltip, Fab, Paper } from '@material-ui/core';
+import { TextField, Tooltip, Fab, Paper, Grid, Typography } from '@material-ui/core';
 import RecipeListItem from '../RecipeListItem/RecipeListItem.jsx'
 import swal from '@sweetalert/with-react';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -21,6 +21,8 @@ class AddRecipe extends Component {
 
   componentDidMount() {
     this.alertSpace();
+    this.props.dispatch({ type: 'RESET_DETAILS' })
+    this.props.dispatch({ type: 'RESET_INGREDIENTS' })
   }
 
   handleChangeFor = (event, propertyToChange) => {
@@ -56,7 +58,7 @@ class AddRecipe extends Component {
 
    clickRecipe = () => {
     this.props.dispatch({ type: 'WHICH_RECIPE', payload: this.state.newRecipe })
-    this.props.history.push('/details')
+    this.props.history.push('/recipes')
   } 
   
   showPreview = () => {
@@ -85,58 +87,63 @@ class AddRecipe extends Component {
 
     render() {
         return (
-            <div>
+            <Grid 
+            container
+            justify={"center"}
+            >
                 <Paper>
-                <div>
-                    <div className="input">
-                        <Button variant="contained" size="medium" color="primary" onClick= {() => this.loadDemo()}></Button>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
-                    </div>
-                </div>
-                <div>
-                    <div className="input">
-                        <Tooltip title="Hide Preview">
-                            <Fab color="primary" onClick= {() => this.showPreview()} >
-                                { this.state.preview ?
-                                <VisibilityOffIcon />
-                                :
-                                <VisibilityIcon />
-                            }
-                            </Fab>
-                        </Tooltip>    
-                        <Tooltip title="Add Recipe!">
-                            <Fab color="primary" onClick= {() => this.saveRecipe()} >           
-                                <AddCircleIcon variant="contained" />
-                            </Fab>     
-                        </Tooltip>    
-                    </div>
-                    { this.state.preview &&
                     <div>
-                        <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
+                        <div className="input">
+                            <Typography onClick= {() => this.loadDemo()}>
+                                Add A Recipe
+                            </Typography>
+                        </div>
                     </div>
-                    }
-                </div>
-            </Paper>
-            </div>
+                    <div>
+                        <div className="input">
+                            <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="input">
+                            <TextField label="Image" value={this.state.newRecipe.image} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="input">
+                            <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="input">
+                            <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="input">
+                            <Tooltip title="Hide Preview">
+                                <Fab color="primary" onClick= {() => this.showPreview()} >
+                                    { this.state.preview ?
+                                    <VisibilityOffIcon />
+                                    :
+                                    <VisibilityIcon />
+                                }
+                                </Fab>
+                            </Tooltip>    
+                            <Tooltip title="Add Recipe!">
+                                <Fab color="primary" onClick= {() => this.saveRecipe()} >           
+                                    <AddCircleIcon variant="contained" />
+                                </Fab>     
+                            </Tooltip>    
+                        </div>
+                        { this.state.preview &&
+                        <div>
+                            <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
+                        </div>
+                        }
+                    </div>
+                </Paper>
+            </Grid>
         );
     }
 }

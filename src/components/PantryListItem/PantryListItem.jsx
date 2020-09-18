@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import swal from '@sweetalert/with-react';
-import { TextField, Tooltip, IconButton } from '@material-ui/core';
+import { TextField, Tooltip, IconButton, TableCell, TableRow } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
@@ -62,38 +62,38 @@ class PantryListItem extends Component {
 
   render() {
       return (
-        <tr>
-          <td>{this.state.newIngredient.name}</td>
+        <TableRow>
+          <TableCell>{this.state.newIngredient.name}</TableCell>
           { this.state.editing ?
-            <td><TextField value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/></td>
+            <TableCell><TextField size="small" value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/></TableCell>
           :
-            <td>{this.state.newIngredient.quantity}</td>
+            <TableCell>{this.state.newIngredient.quantity}</TableCell>
           }
           { this.state.editing ?
-            <td>
+            <TableCell>
               <Tooltip title="Save" >
                 <IconButton onClick={() => this.saveIngredient(this.props.ingredient.id)} >
                     <SaveIcon /> 
                 </IconButton>
               </Tooltip>
-            </td>
+            </TableCell>
           :
-            <td>
+            <TableCell>
               <Tooltip title="Edit" >
                 <IconButton onClick={() => this.editIngredient(this.props.ingredient.id)} >
                     <EditIcon color="primary" /> 
                 </IconButton>
               </Tooltip>
-            </td>
+            </TableCell>
           }
-            <td>
+            <TableCell>
               <Tooltip title="Delete" >
                 <IconButton onClick={() => this.deleteIngredient(this.props.ingredient.ingredient_id)} >
                     <DeleteIcon color="secondary" /> 
                 </IconButton>
               </Tooltip>
-            </td>
-        </tr>
+            </TableCell>
+        </TableRow>
       )
   }
 }

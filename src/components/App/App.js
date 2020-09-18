@@ -25,6 +25,8 @@ import AddRecipe from '../AddRecipe/AddRecipe.jsx';
 import Pantry from '../Pantry/Pantry.jsx';
 import RecipeList from '../RecipeList/RecipeList.jsx'
 import Details from '../Details/Details.jsx'
+import { Container } from '@material-ui/core';
+
 
 
 class App extends Component {
@@ -41,6 +43,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
+          <Container>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -117,6 +120,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
+          </Container>
           <Footer />
         </div>
       </Router>
