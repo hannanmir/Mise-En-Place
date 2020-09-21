@@ -123,7 +123,7 @@ class AddRecipe extends Component {
                     <div>
                         <div className="input">
                             <div className="preview">
-                            <Tooltip title="Hide Preview">
+                            <Tooltip title="Preview">
                                 <Fab color="primary" onClick= {() => this.showPreview()} >
                                     { this.state.preview ?
                                     <VisibilityOffIcon />
