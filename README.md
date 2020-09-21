@@ -13,7 +13,9 @@
 This app is a react recipe and pantry organizer/ collector. Users can add recipes to the app and view the name, image, description, ingredients, and instructions. The users can also edit any of those parts of the recipe easily with the modular edit mode of the recipe page. Users may also view all the recipes in the app and favorite any of them. Users can also add, edit, remove, and view ingredients in their pantry. Ingredients are displayed either in a "Pantry" or "Fridge" table indicating if the items need to be refrigerated or not.
 
 ## Screenshots
+#### Recipe Collection
 ![Recipe Collection](https://github.com/hannanmir/Mise-En-Place/blob/master/public/images/Screen%20Shot%202020-09-21%20at%203.50.28%20PM.png)
+#### Pantry
 ![Pantry](https://github.com/hannanmir/Mise-En-Place/blob/master/public/images/Screen%20Shot%202020-09-21%20at%203.40.35%20PM.png)
 
 
