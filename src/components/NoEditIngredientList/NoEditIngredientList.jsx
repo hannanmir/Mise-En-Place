@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 
 class NoEditIngredientList extends Component {
@@ -10,9 +10,9 @@ class NoEditIngredientList extends Component {
 
   render() {
     return (
-      <Grid item xs={3}>
-        <li>{this.props.ingredient.name} ({this.props.ingredient.quantity})</li>
-      </Grid>
+        <Grid item xs={3}>
+          <Typography><li>{this.props.ingredient.name} ({this.props.ingredient.quantity})</li></Typography>
+        </Grid>
     );
   }
 }

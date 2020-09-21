@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { Tooltip, IconButton, TextField, Select, MenuItem, Paper, Grid } from '@material-ui/core';
+import { Tooltip, IconButton, TextField, Select, MenuItem, Paper, Typography, Grid } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -119,12 +119,7 @@ class Details extends Component {
         const string = splitLines(this.state.newRecipe.instructions)
         return (
 
-            <Paper>
-            <Grid 
-            container
-            justify={"center"}
-            alignItems={"center"}
-            >
+            <Paper >
                 { this.state.editing ?
                     // EDITING MODE ON
                     <div className="details">
@@ -135,10 +130,9 @@ class Details extends Component {
                                     </IconButton>
                                 </Tooltip>
                         </div>
-                        <Grid item xs={12} >
                         { this.state.editName ?
                             // EDIT NAME ON
-                            <h1>
+                            <h1 class="center">
                                 <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
                                 <Tooltip title="Save Changes" >
                                     <IconButton onClick={() => this.editName()} >
@@ -148,21 +142,21 @@ class Details extends Component {
                             </h1>
                             :
                             // EDIT NAME OFF
-                            <h1>
-                                {this.state.newRecipe.name}
-                                <Tooltip title="Edit Name" >
-                                    <IconButton onClick={() => this.editName()} >
-                                        <EditIcon color="primary" />
-                                    </IconButton>
-                                </Tooltip>
-                            </h1>
+                            <Typography>
+                                <h1 class="center">
+                                    {this.state.newRecipe.name}
+                                    <Tooltip title="Edit Name" >
+                                        <IconButton onClick={() => this.editName()} >
+                                            <EditIcon color="primary" />
+                                        </IconButton>
+                                    </Tooltip>
+                                </h1>
+                            </Typography>
                         }
-                        </Grid>
-                        <Grid item xs={12} >
                         { this.state.editImage ?
                             // EDIT IMAGE ON
                             <>
-                                <img src={this.state.newRecipe.image} alt={this.state.newRecipe.name} />
+                                <img src={this.state.newRecipe.image} alt={this.state.newRecipe.name} class="center"/>
                                 <TextField label="Image" value={this.state.newRecipe.image} variant="outlined" fullWidth={true} onChange = {(event) => this.handleChangeFor(event, 'image')}/>
                                 <Tooltip title="Save Changes" >
                                 <IconButton onClick={() => this.editImage()} >
@@ -173,7 +167,7 @@ class Details extends Component {
                             :
                             // EDIT IMAGE OFF
                             <>
-                                <img src={this.state.newRecipe.image} alt={this.state.newRecipe.name} />
+                                <img src={this.state.newRecipe.image} alt={this.state.newRecipe.name} class="center"/>
                                 <Tooltip title="Edit Image" >
                                     <IconButton onClick={() => this.editImage()} >
                                         <EditIcon color="primary" />
@@ -181,42 +175,40 @@ class Details extends Component {
                                 </Tooltip>
                             </>
                         }
-                        </Grid >
-                        <Grid item xs={12} >
                         { this.state.editDescription ?
                             // EDIT DESCRIPTION ON
-                            <p>
+                            <Typography variant="body2" color="textSecondary">
                                 <TextField multiline={true} variant="outlined" fullWidth={false} size="small" label="Description" value={this.state.newRecipe.description} onChange = {(event) => this.handleChangeFor(event, 'description')}/>
                                 <Tooltip title="Save Changes" >
                                     <IconButton onClick={() => this.editDescription()} >
                                         <SaveIcon color="primary" />
                                 </IconButton>
                                 </Tooltip>
-                            </p>
+                            </Typography>
                             :
                             // EDIT DESCRIPTION OFF
-                            <p>
+                            <Typography variant="body2" color="textSecondary">
                                 {this.state.newRecipe.description}
                                 <Tooltip title="Edit Description" >
                                     <IconButton onClick={() => this.editDescription()} >
                                         <EditIcon color="primary" />
                                     </IconButton>
                                 </Tooltip>
-                            </p>
+                            </Typography>
                         }
-                        </Grid>
-                        <Grid item xs={12} >
                         { this.state.editIngredients ?
                             // EDIT INGREDIENTS ON
                             <div>
-                                <h4>
-                                    Ingredients
-                                    <Tooltip title="Save Changes" >
-                                        <IconButton onClick={() => this.editIngredients()} >
-                                            <SaveIcon color="primary" />
-                                        </IconButton>
-                                    </Tooltip>
-                                </h4>
+                                <Typography>
+                                    <h4>
+                                        Ingredients
+                                        <Tooltip title="Save Changes" >
+                                            <IconButton onClick={() => this.editIngredients()} >
+                                                <SaveIcon color="primary" />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </h4>
+                                </Typography>
                                 <div className="input">
                                     <TextField label="Ingredient" value={this.state.newIngredient.name} onChange = {(event) => this.handleChangeIngredient(event, 'name')}/>
                                     <TextField label="Quantity" value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/>
@@ -232,46 +224,52 @@ class Details extends Component {
                                     </Tooltip>
                                 </div>
                                 <div>
-                                    {this.props.store.ingredients.map((ingredient) => {
-                                        return (
-                                            <IngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
-                                        );
-                                    })}
+                                    <Grid container justify="flex-start" alignItems="center">
+                                        {this.props.store.ingredients.map((ingredient) => {
+                                            return (
+                                                <IngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
+                                            );
+                                        })}
+                                    </Grid>
                                 </div>
                             </div>
                             :
                             // EDIT INGREDIENTS OFF
                             <div>
-                                <h4>
-                                    Ingredients
-                                    <Tooltip title="Edit Ingredients" >
-                                        <IconButton onClick={() => this.editIngredients()} >
-                                            <EditIcon color="primary" />
-                                        </IconButton>
-                                    </Tooltip>
-                                </h4>
+                                <Typography>
+                                    <h4>
+                                        Ingredients
+                                        <Tooltip title="Edit Ingredients" >
+                                            <IconButton onClick={() => this.editIngredients()} >
+                                                <EditIcon color="primary" />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </h4>
+                                </Typography>
                                 <div>
-                                    {this.props.store.ingredients.map((ingredient) => {
-                                        return (
-                                            <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
-                                        );
-                                    })}
+                                    <Grid container justify="flex-start" alignItems="center">
+                                        {this.props.store.ingredients.map((ingredient) => {
+                                            return (
+                                                <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
+                                            );
+                                        })}
+                                    </Grid>
                                 </div>
                             </div>
                         }
-                        </Grid>
-                        <Grid item xs={12} >
                         { this.state.editInstructions ?
                             // EDIT INSTRUCTIONS ON
                             <div>
-                                <h4>
-                                    Instructions
-                                    <Tooltip title="Save Changes" >
-                                        <IconButton onClick={() => this.editInstructions()} >
-                                            <SaveIcon color="primary" />
-                                        </IconButton>
-                                    </Tooltip>
-                                </h4>
+                                <Typography>
+                                    <h4>
+                                        Instructions
+                                        <Tooltip title="Save Changes" >
+                                            <IconButton onClick={() => this.editInstructions()} >
+                                                <SaveIcon color="primary" />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </h4>
+                                </Typography>
                                 <TextField multiline={true} variant="outlined" fullWidth={true} size="medium" label="Instructions" value={this.state.newRecipe.instructions} onChange = {(event) => this.handleChangeFor(event, 'instructions')} />
                                 {string.map((line, i) => {
                                     return(
@@ -282,6 +280,7 @@ class Details extends Component {
                             :
                             // EDIT INSTRUCTIONS OFF
                             <div>
+                                <Typography>
                                 <h4>
                                     Instructions
                                     <Tooltip title="Edit Instructions" >
@@ -290,14 +289,14 @@ class Details extends Component {
                                         </IconButton>
                                     </Tooltip>
                                 </h4>
+                                </Typography>
                                 {string.map((line, i) => {
                                     return(
-                                        <p key={i}>{line}</p>
+                                        <Typography key={i}>{line}</Typography>
                                     )
                                 })}
                             </div>
                         }
-                        </Grid>
                     </div>
                     :
                     // EDITING MODE OFF
@@ -309,34 +308,31 @@ class Details extends Component {
                                 </IconButton>
                             </Tooltip>
                         </div>
-                        <Grid item xs={12} ><h1>{this.props.store.details.name}</h1></Grid>
-                        <Grid item xs={12} ><img src={this.props.store.details.image} alt={this.props.store.details.name} /></Grid>
-                        <Grid item xs={12} ><p>{this.props.store.details.description}</p></Grid>
-                        <Grid item xs={12} >
+                        <Typography><h1 class="centertitle">{this.props.store.details.name}</h1></Typography>
+                        <img src={this.props.store.details.image} alt={this.props.store.details.name} class="center"/>
+                        <Typography variant="body2" color="textSecondary"><p>{this.props.store.details.description}</p></Typography>
                         <div>
-                            <h4>Ingredients</h4>
+                            <Typography><h4>Ingredients</h4></Typography>
                             <div >
-                                {this.props.store.ingredients.map((ingredient) => {
-                                    return (
-                                        <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
-                                    );
-                                })}
+                                <Grid container justify="flex-start" alignItems="center">
+                                    {this.props.store.ingredients.map((ingredient) => {
+                                        return (
+                                            <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
+                                        );
+                                    })}
+                                </Grid>
                             </div>
                         </div>
-                        </Grid>
-                        <Grid item xs={12} >
                         <div>
-                            <h4>Instructions</h4>
+                        <Typography><h4>Instructions</h4></Typography>
                             {string.map((line, i) => {
                                 return(
-                                    <p key={i}>{line}</p>
+                                    <Typography key={i}>{line}</Typography>
                                 )
                             })}
                         </div>
-                        </Grid>
                     </div>
                 }
-            </Grid>
             </Paper>
         );
     }
