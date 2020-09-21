@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import AddIngredient from '../AddIngredient/AddIngredient.jsx'
 import PantryListItem from '../PantryListItem/PantryListItem.jsx'
-import { Typography, Grid, Paper, Table, TableContainer, TableCell, TableRow, TableHead, TableBody,  } from '@material-ui/core';
+import { Typography, Grid, Paper, Table, TableContainer, TableCell, TableRow, TableHead, TableBody } from '@material-ui/core';
 
 
 class Pantry extends Component {
@@ -20,6 +20,7 @@ class Pantry extends Component {
 
   render() {
     return (
+        <div className="addrecipe">
         <Grid container justify="center" alignItems="stretch" spacing={2}>
             <AddIngredient />
             <Grid xs={6} item>
@@ -69,6 +70,7 @@ class Pantry extends Component {
                 </Paper>
             </Grid>
         </Grid>
+        </div>
     );
   }
 }
