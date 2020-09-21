@@ -89,7 +89,7 @@ class PantryListItem extends Component {
             <TableCell>
               <Tooltip title="Delete" >
                 <IconButton onClick={() => this.deleteIngredient(this.props.ingredient.ingredient_id)} >
-                    <DeleteIcon color="secondary" /> 
+                    <DeleteIcon color="error" /> 
                 </IconButton>
               </Tooltip>
             </TableCell>

@@ -9,13 +9,10 @@ import {
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 import 'fontsource-roboto';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -26,6 +23,7 @@ import Pantry from '../Pantry/Pantry.jsx';
 import RecipeList from '../RecipeList/RecipeList.jsx'
 import Details from '../Details/Details.jsx'
 import { Container } from '@material-ui/core';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 
@@ -39,33 +37,33 @@ class App extends Component {
   }
 
   render() {
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: '#ab83bb',
+        },
+        secondary: {
+          main: '#feb098',
+        },
+        error: {
+          main: '#f35f50'
+        }
+      },
+    });
     return (
+      <ThemeProvider theme={theme}>
       <Router>
         <div>
           <Nav />
           <Container>
           <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
-
-            {/* Visiting localhost:3000/about will show the about page. */}
-            <Route
-              // shows AboutPage at all times (logged in or not)
-              exact
-              path="/about"
-              component={AboutPage}
-            />
+            {/* Visiting localhost:3000 will redirect to localhost:3000/recipes */}
+            <Redirect exact from="/" to="/recipes" />
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/user"
-              component={UserPage}
-            />
             {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
@@ -76,7 +74,7 @@ class App extends Component {
               exact
               path="/login"
               component={LoginPage}
-              authRedirect="/user"
+              authRedirect="/recipes"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -85,7 +83,7 @@ class App extends Component {
               exact
               path="/registration"
               component={RegisterPage}
-              authRedirect="/user"
+              authRedirect="/recipes"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -94,7 +92,7 @@ class App extends Component {
               exact
               path="/home"
               component={LandingPage}
-              authRedirect="/user"
+              authRedirect="/recipes"
             />
             <ProtectedRoute
               exact
@@ -121,9 +119,9 @@ class App extends Component {
             <Route render={() => <h1>404</h1>} />
           </Switch>
           </Container>
-          <Footer />
         </div>
       </Router>
+      </ThemeProvider>
     );
   }
 }

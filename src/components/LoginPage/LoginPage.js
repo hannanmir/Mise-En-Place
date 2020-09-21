@@ -8,7 +8,6 @@ class LoginPage extends Component {
     return (
       <div>
         <LoginForm />
-
         <center>
           <button
             type="button"

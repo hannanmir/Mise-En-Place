@@ -94,7 +94,7 @@ class AddRecipe extends Component {
                 <Paper>
                     <div>
                         <div className="input">
-                            <Typography onClick= {() => this.loadDemo()}>
+                            <Typography color="primary" onClick= {() => this.loadDemo()}>
                                 Add A Recipe
                             </Typography>
                         </div>
@@ -121,6 +121,7 @@ class AddRecipe extends Component {
                     </div>
                     <div>
                         <div className="input">
+                            <div className="preview">
                             <Tooltip title="Hide Preview">
                                 <Fab color="primary" onClick= {() => this.showPreview()} >
                                     { this.state.preview ?
@@ -130,6 +131,7 @@ class AddRecipe extends Component {
                                 }
                                 </Fab>
                             </Tooltip>    
+                            </div>
                             <Tooltip title="Add Recipe!">
                                 <Fab color="primary" onClick= {() => this.saveRecipe()} >           
                                     <AddCircleIcon variant="contained" />

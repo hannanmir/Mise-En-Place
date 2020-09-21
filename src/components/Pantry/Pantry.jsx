@@ -5,6 +5,7 @@ import AddIngredient from '../AddIngredient/AddIngredient.jsx'
 import PantryListItem from '../PantryListItem/PantryListItem.jsx'
 import { Typography, Grid, Paper, Table, TableContainer, TableCell, TableRow, TableHead, TableBody,  } from '@material-ui/core';
 
+
 class Pantry extends Component {
     state = {
         pantryList: [],
@@ -25,9 +26,9 @@ class Pantry extends Component {
                 <Paper>
                     <TableContainer className="table">
                         <Table stickyHeader >
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Name</TableCell>
+                            <TableHead >
+                                <TableRow >
+                                    <TableCell >Name</TableCell>
                                     <TableCell>Quantity</TableCell>
                                     <TableCell><Typography>Pantry</Typography></TableCell>
                                     <TableCell></TableCell>
