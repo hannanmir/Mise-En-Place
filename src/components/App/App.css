@@ -7,12 +7,16 @@ body,
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-  background-color: lightgray;
+  background-color: #fbe3d6;
+}
+
+.table {
+  max-height: 28.9em;
 }
 
 img {
-  display: inline-block;
-  max-width: 100%;
+  max-width: 60vw;
+  max-height: 40vw;
 }
 
 .select {
@@ -24,10 +28,6 @@ img {
   margin: 1em;
 }
 
-.details {
-  margin-left: 8em;
-}
-
 .edit {
   overflow: hidden;
   position: fixed; /* Set the navbar to fixed position */
@@ -37,10 +37,6 @@ img {
 
 .progress {
   text-align: center;
-}
-
-.list {
-  margin: 2em;
 }
 
 /* --------------------------------------------------------------------------------

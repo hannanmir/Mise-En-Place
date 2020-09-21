@@ -18,7 +18,8 @@ class RecipeList extends Component {
   render() {
     return (
       <Grid 
-        container 
+        container
+        alignItems="stretch" 
         spacing={2}
         >
         { this.props.store.recipes.map((recipe) => {

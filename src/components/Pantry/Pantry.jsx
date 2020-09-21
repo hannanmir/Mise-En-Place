@@ -19,17 +19,18 @@ class Pantry extends Component {
 
   render() {
     return (
-        // <div className="grid">
         <Grid container justify="center" alignItems="stretch" spacing={2}>
             <AddIngredient />
             <Grid xs={6} item>
                 <Paper>
-                    <TableContainer>
-                        <Table>
+                    <TableContainer className="table">
+                        <Table stickyHeader >
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Quantity</TableCell>
+                                    <TableCell><Typography>Pantry</Typography></TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -45,12 +46,14 @@ class Pantry extends Component {
             </Grid>
             <Grid xs={6} item>
                 <Paper>
-                    <TableContainer >
-                        <Table>
+                    <TableContainer className="table">
+                        <Table stickyHeader >
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Quantity</TableCell>
+                                    <TableCell><Typography>Fridge</Typography></TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -65,7 +68,6 @@ class Pantry extends Component {
                 </Paper>
             </Grid>
         </Grid>
-        // </div>
     );
   }
 }

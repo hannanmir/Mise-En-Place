@@ -8,7 +8,6 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import IngredientList from '../IngredientList/IngredientList.jsx'
 import NoEditIngredientList from '../NoEditIngredientList/NoEditIngredientList.jsx'
 import swal from '@sweetalert/with-react';
-import './Details.css';
 
 class Details extends Component {
     state = {
@@ -119,12 +118,13 @@ class Details extends Component {
         const splitLines = str => str.split('  ');
         const string = splitLines(this.state.newRecipe.instructions)
         return (
+
+            <Paper>
             <Grid 
             container
             justify={"center"}
             alignItems={"center"}
             >
-            <Paper>
                 { this.state.editing ?
                     // EDITING MODE ON
                     <div className="details">
@@ -135,6 +135,7 @@ class Details extends Component {
                                     </IconButton>
                                 </Tooltip>
                         </div>
+                        <Grid item xs={12} >
                         { this.state.editName ?
                             // EDIT NAME ON
                             <h1>
@@ -156,6 +157,8 @@ class Details extends Component {
                                 </Tooltip>
                             </h1>
                         }
+                        </Grid>
+                        <Grid item xs={12} >
                         { this.state.editImage ?
                             // EDIT IMAGE ON
                             <>
@@ -178,6 +181,8 @@ class Details extends Component {
                                 </Tooltip>
                             </>
                         }
+                        </Grid >
+                        <Grid item xs={12} >
                         { this.state.editDescription ?
                             // EDIT DESCRIPTION ON
                             <p>
@@ -199,6 +204,8 @@ class Details extends Component {
                                 </Tooltip>
                             </p>
                         }
+                        </Grid>
+                        <Grid item xs={12} >
                         { this.state.editIngredients ?
                             // EDIT INGREDIENTS ON
                             <div>
@@ -224,7 +231,7 @@ class Details extends Component {
                                         </IconButton>
                                     </Tooltip>
                                 </div>
-                                <div className="list">
+                                <div>
                                     {this.props.store.ingredients.map((ingredient) => {
                                         return (
                                             <IngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
@@ -243,7 +250,7 @@ class Details extends Component {
                                         </IconButton>
                                     </Tooltip>
                                 </h4>
-                                <div className="list">
+                                <div>
                                     {this.props.store.ingredients.map((ingredient) => {
                                         return (
                                             <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
@@ -252,6 +259,8 @@ class Details extends Component {
                                 </div>
                             </div>
                         }
+                        </Grid>
+                        <Grid item xs={12} >
                         { this.state.editInstructions ?
                             // EDIT INSTRUCTIONS ON
                             <div>
@@ -288,6 +297,7 @@ class Details extends Component {
                                 })}
                             </div>
                         }
+                        </Grid>
                     </div>
                     :
                     // EDITING MODE OFF
@@ -299,19 +309,22 @@ class Details extends Component {
                                 </IconButton>
                             </Tooltip>
                         </div>
-                        <h1>{this.props.store.details.name}</h1>
-                        <img src={this.props.store.details.image} alt={this.props.store.details.name} />
-                        <p>{this.props.store.details.description}</p>
+                        <Grid item xs={12} ><h1>{this.props.store.details.name}</h1></Grid>
+                        <Grid item xs={12} ><img src={this.props.store.details.image} alt={this.props.store.details.name} /></Grid>
+                        <Grid item xs={12} ><p>{this.props.store.details.description}</p></Grid>
+                        <Grid item xs={12} >
                         <div>
-                                <h4>Ingredients</h4>
-                                <div className="list">
-                                    {this.props.store.ingredients.map((ingredient) => {
-                                        return (
-                                            <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
-                                        );
-                                    })}
-                                </div>
+                            <h4>Ingredients</h4>
+                            <div >
+                                {this.props.store.ingredients.map((ingredient) => {
+                                    return (
+                                        <NoEditIngredientList key={ingredient.ingredient_id} ingredient={ingredient}/>
+                                    );
+                                })}
                             </div>
+                        </div>
+                        </Grid>
+                        <Grid item xs={12} >
                         <div>
                             <h4>Instructions</h4>
                             {string.map((line, i) => {
@@ -320,10 +333,11 @@ class Details extends Component {
                                 )
                             })}
                         </div>
+                        </Grid>
                     </div>
                 }
-            </Paper>
             </Grid>
+            </Paper>
         );
     }
 }

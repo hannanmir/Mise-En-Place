@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import { TextField, MenuItem, Select, IconButton, Tooltip, Grid, Paper, FormControl, FormGroup } from '@material-ui/core';
+import { TextField, MenuItem, Select, IconButton, Tooltip, Grid, Paper, FormControl, InputLabel } from '@material-ui/core';
 import swal from '@sweetalert/with-react';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
@@ -43,31 +43,30 @@ class AddIngredient extends Component {
         return (
             <Grid container justify="center" alignItems="center">
                 <Paper>
-                    <FormControl>
-                    <div className="input">
-
-                        <Grid xs={3} item>
-                            <TextField label="Ingredient" value={this.state.newIngredient.name} onChange={(event) => this.handleChangeIngredient(event, 'name')} />
-                        </Grid>
-                        <Grid xs={3} item>
-                            <TextField label="Quantity" value={this.state.newIngredient.quantity} onChange={(event) => this.handleChangeIngredient(event, 'quantity')} />
-                        </Grid>
-                        <Grid xs={3} item>
-                            <Select className="select" value={this.state.newIngredient.inFridge} onChange={(value) => this.handleChangeIngredient(value, 'inFridge')}>
-                                <MenuItem value={0}>In Fridge?</MenuItem>
-                                <MenuItem value={true}>True</MenuItem>
-                                <MenuItem value={false}>False</MenuItem>
-                            </Select>
-                        </Grid>
-                        <Grid xs={3} item>
-                            <Tooltip title="Add" >
-                                <IconButton onClick={() => this.addIngredient()} >
-                                    <AddBoxIcon color="primary" size="medium" />
-                                </IconButton>
-                            </Tooltip>
-                        </Grid>
+                        <div className="input">
+                            <Grid xs={3} item>
+                                <TextField label="Ingredient" value={this.state.newIngredient.name} onChange={(event) => this.handleChangeIngredient(event, 'name')} />
+                            </Grid>
+                            <Grid xs={3} item>
+                                <TextField label="Quantity" value={this.state.newIngredient.quantity} onChange={(event) => this.handleChangeIngredient(event, 'quantity')} />
+                            </Grid>
+                            <Grid xs={3} item>
+                            <FormControl>
+                                <InputLabel>Storage</InputLabel>
+                                <Select className="select" value={this.state.newIngredient.inFridge} onChange={(value) => this.handleChangeIngredient(value, 'inFridge')}>
+                                    <MenuItem value={true}>Fridge</MenuItem>
+                                    <MenuItem value={false}>Pantry</MenuItem>
+                                </Select>
+                            </FormControl>
+                            </Grid>
+                            <Grid xs={3} item>
+                                <Tooltip title="Add" >
+                                    <IconButton onClick={() => this.addIngredient()} >
+                                        <AddBoxIcon color="primary" size="medium" />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
                         </div>
-                        </FormControl>
                 </Paper>
             </Grid>
         );

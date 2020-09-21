@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     let queryText = `SELECT "user_ingredient".ingredient_id, "name", "quantity" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
                     WHERE "user_ingredient".user_id = $1 AND "inFridge" = false
-                    ORDER BY "ingredient".id;`;
+                    ORDER BY "name";`;
     pool.query(queryText, [req.user.id]).then(result => {
         res.send(result.rows);
     })
@@ -22,7 +22,7 @@ router.get('/fridge', (req, res) => {
     let queryText = `SELECT "user_ingredient".ingredient_id, "name", "quantity" from "ingredient"
                     JOIN "user_ingredient" on "ingredient".id = "user_ingredient".ingredient_id
                     WHERE "user_ingredient".user_id = $1 AND "inFridge" = true
-                    ORDER BY "ingredient".id;`;
+                    ORDER BY "name";`;
     pool.query(queryText, [req.user.id]).then(result => {
         res.send(result.rows);
     })

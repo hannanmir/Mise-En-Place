@@ -9,11 +9,14 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles({
     root: {
       maxWidth: 345,
-      height: "100%",
+      // height: "100%",
     },
     media: {
       height: 140,
     },
+    content: {
+      height: 100,
+    }
 });
 
   export default withRouter(connect(mapStoreToProps)(function MediaCard(props) {
@@ -44,18 +47,19 @@ const useStyles = makeStyles({
         filterFavorites();
     });
     return (
-      <Card className={classes.root}>
+      <Card className={classes.root} >
         <CardActionArea>
           <CardMedia
             className={classes.media}
             image={props.recipe.image}
             title={props.recipe.name}
+            onClick={ () => clickRecipe(props.recipe)}
           />
-          <CardContent>
+          <CardContent onClick={ () => clickRecipe(props.recipe)} >
             <Typography gutterBottom variant="h5" component="h2">
             {props.recipe.name}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography className={classes.content} variant="body2" color="textSecondary" component="p">
               {props.recipe.description}
             </Typography>
           </CardContent>

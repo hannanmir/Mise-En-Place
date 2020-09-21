@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import swal from '@sweetalert/with-react';
-import { TextField, Tooltip, IconButton } from '@material-ui/core';
+import { TextField, Tooltip, IconButton, Grid } from '@material-ui/core';
 
 class IngredientList extends Component {
     state = {
@@ -59,32 +59,34 @@ class IngredientList extends Component {
 
   render() {
     return (
-        <li>
-            <>{this.props.ingredient.name} </>
-            { this.state.editing ?
-            <TextField value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/>
-            :
-            <>({this.props.ingredient.quantity})</>
-            }
-            { this.state.editing ?
-                <Tooltip title="Save" >
-                <IconButton onClick={() => this.saveIngredient(this.props.ingredient.id)} >
-                    <SaveIcon /> 
-                </IconButton>
-                </Tooltip>
-            :
-                <Tooltip title="Edit" >
-                <IconButton onClick={() => this.editIngredient(this.props.ingredient.id)} >
-                    <EditIcon color="primary" /> 
-                </IconButton>
-                </Tooltip>
-            }
-                <Tooltip title="Delete" >
-                <IconButton onClick={() => this.deleteIngredient(this.state.newIngredient)} >
-                    <DeleteIcon color="secondary" /> 
-                </IconButton>
-                </Tooltip>
-        </li>
+        <Grid item xs={3} >
+            <li>
+                <>{this.props.ingredient.name} </>
+                { this.state.editing ?
+                <TextField value={this.state.newIngredient.quantity} onChange = {(event) => this.handleChangeIngredient(event, 'quantity')}/>
+                :
+                <>({this.props.ingredient.quantity})</>
+                }
+                { this.state.editing ?
+                    <Tooltip title="Save" >
+                    <IconButton onClick={() => this.saveIngredient(this.props.ingredient.id)} >
+                        <SaveIcon /> 
+                    </IconButton>
+                    </Tooltip>
+                :
+                    <Tooltip title="Edit" >
+                    <IconButton onClick={() => this.editIngredient(this.props.ingredient.id)} >
+                        <EditIcon color="primary" /> 
+                    </IconButton>
+                    </Tooltip>
+                }
+                    <Tooltip title="Delete" >
+                    <IconButton onClick={() => this.deleteIngredient(this.state.newIngredient)} >
+                        <DeleteIcon color="secondary" /> 
+                    </IconButton>
+                    </Tooltip>
+            </li>
+        </Grid>
     );
   }
 }
