@@ -175,4 +175,40 @@ router.put('/recipe', (req, res) => {
     });
 });
 
+router.post('/demo', async (req, res) => {
+    console.log('Adding new demo:', req.body);
+    const client = await pool.connect();
+    try {
+        const firstQuery = `INSERT INTO "ingredient" ("name")
+                            VALUES ($1) RETURNING "id";`;
+        const secondQuery = `INSERT INTO "ingredient_recipe" ("recipe_id", "ingredient_id", "quantity" )
+                            VALUES ($1, $2, $3);`;
+        await client.query('BEGIN');
+        const result = await client.query(firstQuery, [req.body.one.name])
+        await client.query(secondQuery, [req.body.recipe_id, result.rows[0].id, req.body.one.quantity ])
+        const result2 = await client.query(firstQuery, [req.body.two.name])
+        await client.query(secondQuery, [req.body.recipe_id, result2.rows[0].id, req.body.two.quantity ])
+        const result3 = await client.query(firstQuery, [req.body.three.name])
+        await client.query(secondQuery, [req.body.recipe_id, result3.rows[0].id, req.body.three.quantity ])
+        const result4 = await client.query(firstQuery, [req.body.four.name])
+        await client.query(secondQuery, [req.body.recipe_id, result4.rows[0].id, req.body.four.quantity ])
+        const result5 = await client.query(firstQuery, [req.body.five.name])
+        await client.query(secondQuery, [req.body.recipe_id, result5.rows[0].id, req.body.five.quantity ])
+        const result6 = await client.query(firstQuery, [req.body.six.name])
+        await client.query(secondQuery, [req.body.recipe_id, result6.rows[0].id, req.body.six.quantity ])
+        const result7 = await client.query(firstQuery, [req.body.seven.name])
+        await client.query(secondQuery, [req.body.recipe_id, result7.rows[0].id, req.body.seven.quantity ])
+        const result8 = await client.query(firstQuery, [req.body.eight.name])
+        await client.query(secondQuery, [req.body.recipe_id, result8.rows[0].id, req.body.eight.quantity ])
+        await client.query('COMMIT');
+        res.sendStatus(201)
+    }  catch (error) {
+        console.log(error);
+        await client.query('ROLLBACK')
+        res.sendStatus(500)
+      } finally {
+        await client.release();
+      }
+});
+
 module.exports = router;

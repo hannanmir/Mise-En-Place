@@ -24,6 +24,41 @@ class Details extends Component {
             inFridge: 0,
             recipe_id: this.props.store.details.id,
         },
+        demo: {
+            one: {
+                name: 'Tuna',
+                quantity: '2x 6 oz cans'
+            },
+            two: {
+                name: 'Mayonnaise',
+                quantity: '1/3 cup'
+            },
+            three: {
+                name: 'Bread',
+                quantity: '2 slices'
+            },
+            four: {
+                name: 'Celery',
+                quantity: '1 rib'
+            },
+            five: {
+                name: 'Dill Pickle',
+                quantity: '2 spears'
+            },
+            six: {
+                name: 'Onion',
+                quantity: '1/4 cup'
+            },
+            seven: {
+                name: 'Cheddar',
+                quantity: '4 slices'
+            },
+            eight: {
+                name: 'Tomato',
+                quantity: '2 slices'
+            },
+            recipe_id: this.props.store.details.id,
+        },
         editing: false,
         editName: false,
         editImage: false,
@@ -114,6 +149,10 @@ class Details extends Component {
         })
     }
 
+    ingredientDemo = () => {
+        this.props.dispatch({ type: 'ADD_DEMO', payload: this.state.demo});
+    }
+
     render() {
         const splitLines = str => str.split('  ');
         const string = splitLines(this.state.newRecipe.instructions)
@@ -132,7 +171,7 @@ class Details extends Component {
                         </div>
                         { this.state.editName ?
                             // EDIT NAME ON
-                            <h1 class="center">
+                            <h1 class="centertitle">
                                 <TextField label="Name" value={this.state.newRecipe.name} onChange = {(event) => this.handleChangeFor(event, 'name')}/>
                                 <Tooltip title="Save Changes" >
                                     <IconButton onClick={() => this.editName()} >
@@ -143,7 +182,7 @@ class Details extends Component {
                             :
                             // EDIT NAME OFF
                             <Typography>
-                                <h1 class="center">
+                                <h1 class="centertitle">
                                     {this.state.newRecipe.name}
                                     <Tooltip title="Edit Name" >
                                         <IconButton onClick={() => this.editName()} >
@@ -167,7 +206,7 @@ class Details extends Component {
                             :
                             // EDIT IMAGE OFF
                             <>
-                                <img src={this.state.newRecipe.image} alt={this.state.newRecipe.name} class="center"/>
+                                <img src={this.state.newRecipe.image} alt={this.state.newRecipe.name} onClick={() => this.ingredientDemo()} class="center"/>
                                 <Tooltip title="Edit Image" >
                                     <IconButton onClick={() => this.editImage()} >
                                         <EditIcon color="primary" />
@@ -200,7 +239,7 @@ class Details extends Component {
                             // EDIT INGREDIENTS ON
                             <div>
                                 <Typography>
-                                    <h4>
+                                    <h4 >
                                         Ingredients
                                         <Tooltip title="Save Changes" >
                                             <IconButton onClick={() => this.editIngredients()} >
@@ -308,7 +347,7 @@ class Details extends Component {
                                 </IconButton>
                             </Tooltip>
                         </div>
-                        <Typography><h1 class="centertitle">{this.props.store.details.name}</h1></Typography>
+                        <Typography><h1 class="centertitle" >{this.props.store.details.name}</h1></Typography>
                         <img src={this.props.store.details.image} alt={this.props.store.details.name} class="center"/>
                         <Typography variant="body2" color="textSecondary"><p>{this.props.store.details.description}</p></Typography>
                         <div>
