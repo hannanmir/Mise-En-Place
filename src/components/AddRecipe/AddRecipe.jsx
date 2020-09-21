@@ -89,10 +89,11 @@ class AddRecipe extends Component {
         return (
             <Grid 
             container
-            justify={"center"}
+            justify="center"
+            alignItems="center"
             >
                 <Paper>
-                    <div>
+                    <div >
                         <div className="input">
                             <Typography color="primary" onClick= {() => this.loadDemo()}>
                                 Add A Recipe
@@ -138,13 +139,18 @@ class AddRecipe extends Component {
                                 </Fab>     
                             </Tooltip>    
                         </div>
-                        { this.state.preview &&
-                        <div>
+
+                    </div>
+                </Paper>
+                <Grid container justify="center" alignItems="center">
+                    <Grid item xs={3}>
+                    { this.state.preview &&
+                        <div className="addrecipe">
                             <RecipeListItem recipe={this.state.newRecipe} key={this.state.newRecipe.name} />
                         </div>
                         }
-                    </div>
-                </Paper>
+                    </Grid>
+                </Grid>
             </Grid>
         );
     }
