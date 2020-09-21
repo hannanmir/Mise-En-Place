@@ -20,7 +20,7 @@ class RecipeList extends Component {
       <Grid 
         container
         alignItems="stretch" 
-        spacing={2}
+        spacing={1}
         >
         { this.props.store.recipes.map((recipe) => {
           return(
